@@ -12,6 +12,6 @@ class Model {
     }
     fun editText(textView : TextView, text : String )
     {
-        textView.text = text;
+        textView.text = text
     }
 }

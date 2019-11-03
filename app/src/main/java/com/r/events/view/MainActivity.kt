@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         //меняем текст
         var text = findViewById<TextView>(R.id.text)
-        viewModel.editText(text, "opaopa")
+        viewModel.editText(text, "Мероприятия")
 
     }
 }
