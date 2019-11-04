@@ -19,8 +19,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.getContext(this)
 
         //меняем текст
-        var text = findViewById<TextView>(R.id.text)
+        val text = findViewById<TextView>(R.id.text)
         viewModel.editText(text, "Мероприятия")
 
+
+        //отправим рандомное уведомление
+        viewModel.pushNotification("1 окт 2019", "Программирование", null)
     }
 }
