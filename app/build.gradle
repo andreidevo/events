@@ -39,5 +39,7 @@ dependencies {
 
     //recycler
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha06'
+
+    //парсинг
     implementation 'org.jsoup:jsoup:1.10.2'
 }
