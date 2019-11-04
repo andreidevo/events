@@ -1,4 +1,4 @@
-package com.r.events
+package com.r.events.model
 
 import android.app.Activity
 import android.app.Notification
@@ -11,26 +11,16 @@ import android.graphics.Color
 import android.os.Build
 import android.widget.TextView
 import androidx.core.app.NotificationCompat
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.select.Elements
-import java.io.IOException
-import java.lang.Exception
 import java.net.URL
-import java.util.ArrayList
-import kotlin.concurrent.thread
-import android.R
 import android.app.NotificationChannel
-import com.r.events.model.PagesParse
+import android.net.Uri
 import com.r.events.view.MainActivity
-
-
-
-
+import androidx.core.content.ContextCompat.startActivity
 
 
 
 class Model {
+
 
     var context : Context? = null
     var activity : Activity? = null
@@ -50,14 +40,17 @@ class Model {
     var vibrateNotification = true
     var lightNotification = true
 
+    private var idG = 0;
     fun pushNotification(name : String?, date : String?, url: URL?){
 
         //то, что откроется после нажатия
         val resultIntent = Intent(context, MainActivity::class.java)
-        var pendingIntent : PendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent : PendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         val notificationManager : NotificationManager =  context?.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val id = "0"
-        var builder : NotificationCompat.Builder
+        val builder : NotificationCompat.Builder
+
 
 
         //тут настройка уведомления
@@ -108,9 +101,10 @@ class Model {
         val notification : Notification = builder.build()
         //проверяем на null
         if( checkNotification(name, date))
-            notificationManager.notify(1, notification)
+            notificationManager.notify(++idG, notification)
     }
-    fun checkNotification(name : String?, date : String?) : Boolean
+
+    private fun checkNotification(name : String?, date : String?) : Boolean
     {
         if( name == null || date == null)
             return false

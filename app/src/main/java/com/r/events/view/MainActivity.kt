@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         val text = findViewById<TextView>(R.id.text)
         viewModel.editText(text, "Мероприятия")
 
-
         //отправим рандомное уведомление
         //viewModel.pushNotification("1 окт 2019", "Программирование", null)
         viewModel.getDataFromPage()
