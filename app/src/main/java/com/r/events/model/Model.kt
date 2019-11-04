@@ -85,12 +85,7 @@ class Model {
                 var title: Elements = doc.getElementsByTag("span")
                 // чистим наш аррей лист для того что бы заполнить
                 titleList?.clear()
-                // и в цикле захватываем все данные какие есть на странице
-//                for (titles in title) {
-//                    // записываем в аррей лист
-//                    val string = titles.text()
-//                    titleList!!.add(string)
-//                }
+
                 pushNotification(title[0].text(), "OPA", null)
 
 
