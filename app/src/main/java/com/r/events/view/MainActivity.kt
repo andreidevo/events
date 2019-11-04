@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //отправим рандомное уведомление
-        viewModel.pushNotification("1 окт 2019", "Программирование", null)
+        //viewModel.pushNotification("1 окт 2019", "Программирование", null)
+        viewModel.getDataFromPage()
     }
 }

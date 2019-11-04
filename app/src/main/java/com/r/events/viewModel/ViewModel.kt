@@ -8,11 +8,12 @@ import android.util.DisplayMetrics
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.r.events.model.Parser
 import java.net.URL
 
 class ViewModel {
     var Model: Model = Model()
-
+    var Parser : Parser = Parser()
     fun getContext(context: Context) {
         Model.getContext(context)
     }
@@ -24,5 +25,9 @@ class ViewModel {
     fun pushNotification(name: String, date: String, url: URL?) {
 
         Model.pushNotification(name, date, url)
+    }
+    fun getDataFromPage()
+    {
+        Model.getDataFromPage()
     }
 }
