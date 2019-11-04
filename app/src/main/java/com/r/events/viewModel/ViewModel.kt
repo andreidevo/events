@@ -6,6 +6,7 @@ import java.net.URL
 
 class ViewModel {
     var Model: Model = Model()
+
     fun getContext(context: Context) {
         Model.getContext(context)
     }
@@ -15,9 +16,9 @@ class ViewModel {
     }
 
     fun pushNotification(name: String, date: String, url: URL?) {
-
         Model.pushNotification(name, date, url)
     }
+
     fun getDataFromPage()
     {
         Model.getDataFromPage()

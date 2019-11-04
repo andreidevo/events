@@ -21,6 +21,7 @@ import java.util.ArrayList
 import kotlin.concurrent.thread
 import android.R
 import android.app.NotificationChannel
+import com.r.events.model.PagesParse
 import com.r.events.view.MainActivity
 
 
@@ -49,7 +50,7 @@ class Model {
     var vibrateNotification = true
     var lightNotification = true
 
-    fun pushNotification(name : String, date : String, url: URL?){
+    fun pushNotification(name : String?, date : String?, url: URL?){
 
         //то, что откроется после нажатия
         val resultIntent = Intent(context, MainActivity::class.java)
@@ -58,6 +59,8 @@ class Model {
         val id = "0"
         var builder : NotificationCompat.Builder
 
+
+        //тут настройка уведомления
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
             val importantHigh = NotificationManager.IMPORTANCE_HIGH
@@ -68,13 +71,15 @@ class Model {
                 mChannel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
                 notificationManager.createNotificationChannel(mChannel)
             }
+
             builder = NotificationCompat.Builder(context!!, id)
-            builder.setContentTitle(date)                            // required
-                .setSmallIcon(android.R.drawable.ic_popup_reminder)   // required
+            builder.setContentTitle(date)
+                .setSmallIcon(android.R.drawable.ic_popup_reminder)
                 .setContentText(name)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
                 .setTicker(name)
+
 
             if(lightNotification)
                 builder.setLights(Color.BLUE, 3000, 3000)
@@ -86,8 +91,8 @@ class Model {
         {
 
             builder = NotificationCompat.Builder(context!!, id)
-            builder.setContentTitle(date)                            // required
-                .setSmallIcon(android.R.drawable.ic_popup_reminder)   // required
+            builder.setContentTitle(date)
+                .setSmallIcon(android.R.drawable.ic_popup_reminder)
                 .setContentText(name) // required
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
@@ -101,37 +106,22 @@ class Model {
         }
 
         val notification : Notification = builder.build()
-        notificationManager.notify(1, notification)
+        //проверяем на null
+        if( checkNotification(name, date))
+            notificationManager.notify(1, notification)
     }
-
-    fun deleteNotificationById( id : Int)
+    fun checkNotification(name : String?, date : String?) : Boolean
     {
-        val notificationManager : NotificationManager =  context?.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-
-        try {
-            notificationManager.cancel(id)
-        }catch (e : Exception){}
+        if( name == null || date == null)
+            return false
+        return true
     }
-    var titleList : ArrayList<String>? = null
+    //функция парсинга сайтов
     fun getDataFromPage()
     {
-        thread {
-            val doc: Document
-            try {
-                // определяем откуда будем воровать данные
-                doc = Jsoup.connect("https://habr.com/ru/").get()
-                // задаем с какого места, я выбрал заголовке статей
-                var title: Elements = doc.getElementsByTag("span")
-                // чистим наш аррей лист для того что бы заполнить
-                titleList?.clear()
-
-                pushNotification(title[0].text(), "OPA", null)
-
-
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
+        //ссылкаемся на класс с парсингами
+        val PagesParse = PagesParse(this)
+        PagesParse.it_events()
 
     }
 
