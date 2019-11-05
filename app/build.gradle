@@ -46,4 +46,7 @@ dependencies {
     //linq
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'net.servicestack:android:1.0.31'
+
+    //слайд меню
+    implementation  'com.fxn769:bubbletabbar:1.0.3'
 }

@@ -3,8 +3,13 @@ package com.r.events.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.viewpager.widget.ViewPager
+import com.fxn.BubbleTabBar
+import com.fxn.OnBubbleClickListener
 import com.r.events.R
 import com.r.events.ViewModel
+import com.r.events.model.PagerAdapt
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,5 +30,7 @@ class MainActivity : AppCompatActivity() {
         //отправим рандомное уведомление
         //viewModel.pushNotification("1 окт 2019", "Программирование", null)
         viewModel.getDataFromPage()
+
+
     }
 }
