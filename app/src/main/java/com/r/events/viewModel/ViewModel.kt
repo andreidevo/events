@@ -12,6 +12,9 @@ class ViewModel {
         Model.getContext(context)
     }
 
+    fun editText(textView: TextView, text: String) {
+        Model.editText(textView, text)
+    }
 
     fun pushNotification(name: String, date: String, url: URL?) {
         Model.pushNotification(name, date, url)

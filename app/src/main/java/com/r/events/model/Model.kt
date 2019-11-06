@@ -21,11 +21,20 @@ import androidx.core.content.ContextCompat.startActivity
 
 class Model {
 
-    var Utils = com.r.events.model.Utils()
+
     var context : Context? = null
+    var activity : Activity? = null
     fun getContext(context : Context)
     {
        this.context = context
+    }
+    fun getActivity(Activity : Activity)
+    {
+        this.activity = Activity
+    }
+    fun editText(textView : TextView, text : String )
+    {
+        textView.text = text
     }
 
     var vibrateNotification = true
@@ -41,6 +50,8 @@ class Model {
         val notificationManager : NotificationManager =  context?.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val id = "0"
         val builder : NotificationCompat.Builder
+
+
 
         //тут настройка уведомления
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
@@ -89,17 +100,21 @@ class Model {
 
         val notification : Notification = builder.build()
         //проверяем на null
-        if( Utils.checkNotification(name, date))
+        if( checkNotification(name, date))
             notificationManager.notify(++idG, notification)
     }
 
-
+    private fun checkNotification(name : String?, date : String?) : Boolean
+    {
+        if( name == null || date == null)
+            return false
+        return true
+    }
     //функция парсинга сайтов
     fun getDataFromPage()
     {
         //ссылкаемся на класс с парсингами
         val PagesParse = PagesParse(this)
-        //процессы асинхронные
         PagesParse.it_events()
 
     }
