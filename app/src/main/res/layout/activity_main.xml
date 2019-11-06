@@ -1,47 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF"
     tools:context=".view.MainActivity">
 
-
-    <!--    Head    !-->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:cardBackgroundColor="#FFF"
-        app:cardElevation="0dp"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
-            android:fontFamily="@font/mu2"
-            android:text="Hello World!"
-            android:textColor="#000"
-            android:textSize="29dp" />
-
-    </androidx.cardview.widget.CardView>
-
-    <com.fxn.BubbleTabBar
-        android:id="@+id/bubbleTabBar"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:padding="7dp"
-        app:bubbletab_menuResource="@xml/menu"
-        app:layout_constraintBottom_toBottomOf="@+id/viewpager">
-
-    </com.fxn.BubbleTabBar>
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
+        android:id="@+id/view_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view_linear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+
+    <com.gauravk.bubblenavigation.BubbleNavigationLinearView
+        android:id="@+id/bottom_navigation_view_linear"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/main_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="@color/white"
+            app:bt_colorInactive="@color/blue_inactive"
+            app:bt_icon="@drawable/ic_home"
+            app:bt_shape="@drawable/transition_background"
+            app:bt_title="@string/main_page"
+            android:layout_marginEnd="25dp"/>
+
+
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/mapped_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/white"
+            app:bt_colorInactive="@color/blue_inactive"
+            app:bt_icon="@drawable/ic_star"
+            app:bt_shape="@drawable/transition_background"
+            app:bt_title="@string/mapped_list"
+            android:layout_marginEnd="25dp"/>
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/white"
+            app:bt_colorInactive="@color/blue_inactive"
+            app:bt_icon="@drawable/ic_settings_black_24dp"
+            app:bt_shape="@drawable/transition_background"
+            app:bt_title="@string/options"
+            android:layout_marginEnd="25dp"/>
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/user_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/white"
+            app:bt_colorInactive="@color/blue_inactive"
+            app:bt_icon="@drawable/ic_user"
+            app:bt_shape="@drawable/transition_background"
+            app:bt_title="@string/user"
+            android:layout_marginEnd="25dp"/>
+
+
+    </com.gauravk.bubblenavigation.BubbleNavigationLinearView>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

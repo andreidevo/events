@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">events</string>
+    <string name="user">О себе</string>
+    <string name="options">Настройки</string>
+    <string name="main_page">Главная</string>
+    <string name="mapped_list">Избранное</string>
 </resources>
