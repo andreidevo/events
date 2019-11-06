@@ -1,14 +1,14 @@
 package com.r.events.model
 
-class Filters ( private var interests : ArrayList<Int>?= null,
-                    private var date : ArrayList<ArrayList<Int>>?= null,
-                    private var type : String?= null,
-                    private var location : String? = null,
-                    private var online : Boolean?  = null) {
+class Filters ( private var name : String?= null,
+                private var date : ArrayList<ArrayList<Int>>?= null,
+                private var type : String?= null,
+                private var location : String? = null,
+                private var online : Boolean?  = null) {
 
-    fun setName(interests : ArrayList<Int>)
+    fun setName(name : String)
     {
-        this.interests = interests
+        this.name = name;
     }
     //day, month, year
     fun setDate( date : ArrayList<ArrayList<Int>>)
@@ -27,9 +27,9 @@ class Filters ( private var interests : ArrayList<Int>?= null,
     {
         this.online = online
     }
-    fun getInterests() : ArrayList<Int>
+    fun getName() : String
     {
-        return this.interests!!
+        return this.name!!;
     }
     fun getType() : String
     {
