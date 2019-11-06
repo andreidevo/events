@@ -2,8 +2,6 @@ package com.r.events.model
 
 import android.content.Context
 import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.GlideContext
 
 class Utils {
     fun convertMonth(month : String) : Int
@@ -111,6 +109,6 @@ class Utils {
     }
     fun imageFromNet(href : String, image : ImageView, context: Context)
     {
-        Glide.with(context).load(href).into(image)
+        //Glide.with(context).load(href).into(image)
     }
 }

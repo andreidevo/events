@@ -48,5 +48,5 @@ dependencies {
     implementation 'net.servicestack:android:1.0.31'
 
     //слайд меню
-    implementation  'com.fxn769:bubbletabbar:1.0.3'
+    implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'
 }
