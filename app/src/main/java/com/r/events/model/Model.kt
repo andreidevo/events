@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.core.app.NotificationCompat
 import java.net.URL
 import android.app.NotificationChannel
-import com.r.events.view.MainActivity
+import com.r.events.view.ui.main_activity.MainActivity
 
 
 

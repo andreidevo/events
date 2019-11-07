@@ -1,4 +1,4 @@
-package com.r.events.view
+package com.r.events.view.ui.main_activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

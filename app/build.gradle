@@ -49,4 +49,10 @@ dependencies {
 
     //слайд меню
     implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+
+    //Чтобы НЕ БЫЛО НОВЫЙ ИНСТАНСОВ
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 }

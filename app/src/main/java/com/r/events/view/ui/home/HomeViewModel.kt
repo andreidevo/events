@@ -1,7 +1,9 @@
 package com.r.events.view.ui.home
 
+import androidx.lifecycle.ViewModel
 
-class HomeViewModel : com.r.events.ViewModel(){
+
+class HomeViewModel : ViewModel(){
 
 
 }
