@@ -92,6 +92,7 @@ class Model {
 
         val notification : Notification = builder.build()
         //проверяем на null
+
         if( checkNotification(name, date))
             notificationManager.notify(++idG, notification)
     }
@@ -108,8 +109,6 @@ class Model {
         //ссылкаемся на класс с парсингами
         val PagesParse = PagesParse(this)
         PagesParse.it_events()
-
-
     }
 
 }
