@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener
 import com.r.events.R
 import com.r.events.adapter.ScreenSlidePagerAdapter
+import com.r.events.model.filters
 import com.r.events.view.ui.Settings.SettingsFragment
 import com.r.events.view.ui.favourites.FavouritesFragment
 import com.r.events.view.ui.home.HomeFragment
@@ -55,6 +56,11 @@ class MainActivity : AppCompatActivity() {
                 true
             )
         })
+
+
+        //просто сделаем какие-то фильтры
+        filters.setDate(arrayListOf(arrayListOf(8,10,2019)))
+        filters.setOnline(false)
 
     }
 }

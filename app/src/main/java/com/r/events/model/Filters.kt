@@ -8,7 +8,7 @@ class Filters ( private var name : String?= null,
 
     fun setName(name : String)
     {
-        this.name = name;
+        this.name = name
     }
     //day, month, year
     fun setDate( date : ArrayList<ArrayList<Int>>)
@@ -40,4 +40,8 @@ class Filters ( private var name : String?= null,
         return this.date!!;
     }
 
+    fun getOnline() : Boolean
+    {
+        return this.online!!
+    }
 }

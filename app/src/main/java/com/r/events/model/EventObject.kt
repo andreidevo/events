@@ -1,7 +1,7 @@
 package com.r.events.model
 
 class EventObject ( private var name : String?= null,
-                    private var date : String?= null,
+                    private var date : ArrayList<ArrayList<Int>>?= null,
                     private var type : String?= null,
                     private var location : String? = null,
                     private var online : Boolean?  = null,
@@ -31,7 +31,7 @@ class EventObject ( private var name : String?= null,
     {
         this.name = name;
     }
-    fun setDate( date : String)
+    fun setDate( date : ArrayList<ArrayList<Int>>?)
     {
         this.date = date
     }
@@ -59,13 +59,17 @@ class EventObject ( private var name : String?= null,
     {
         return this.type!!;
     }
-    fun getDate() : String
+    fun getDate() : ArrayList<ArrayList<Int>>?
     {
-        return this.date!!;
+        return this.date!!
     }
     fun getHref():String
     {
         return this.href!!
     }
 
+    fun getOnline() : Boolean
+    {
+        return this.online!!
+    }
 }
