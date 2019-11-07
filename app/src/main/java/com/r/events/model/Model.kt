@@ -1,6 +1,5 @@
 package com.r.events.model
 
-import android.app.Activity
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -13,9 +12,7 @@ import android.widget.TextView
 import androidx.core.app.NotificationCompat
 import java.net.URL
 import android.app.NotificationChannel
-import android.net.Uri
 import com.r.events.view.MainActivity
-import androidx.core.content.ContextCompat.startActivity
 
 
 
@@ -23,14 +20,9 @@ class Model {
 
 
     var context : Context? = null
-    var activity : Activity? = null
     fun getContext(context : Context)
     {
         this.context = context
-    }
-    fun getActivity(Activity : Activity)
-    {
-        this.activity = Activity
     }
     fun editText(textView : TextView, text : String )
     {
@@ -40,7 +32,7 @@ class Model {
     var vibrateNotification = true
     var lightNotification = true
 
-    private var idG = 0;
+    private var idG = 0
     fun pushNotification(name : String?, date : String?, url: URL?){
 
         //то, что откроется после нажатия
@@ -116,6 +108,7 @@ class Model {
         //ссылкаемся на класс с парсингами
         val PagesParse = PagesParse(this)
         PagesParse.it_events()
+
 
     }
 

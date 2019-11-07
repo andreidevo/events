@@ -5,7 +5,7 @@ import android.widget.TextView
 import com.r.events.model.Model
 import java.net.URL
 
-class ViewModel {
+open class ViewModel {
     var Model: Model = Model()
 
     fun getContext(context: Context) {
@@ -16,7 +16,7 @@ class ViewModel {
         Model.editText(textView, text)
     }
 
-    fun pushNotification(name: String, date: String, url: URL?) {
+    public fun pushNotification(name: String, date: String, url: URL?) {
         Model.pushNotification(name, date, url)
     }
 

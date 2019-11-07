@@ -5,8 +5,28 @@ class EventObject ( private var name : String?= null,
                     private var type : String?= null,
                     private var location : String? = null,
                     private var online : Boolean?  = null,
-                    private var href : String? = null) {
+                    private var href : String? = null,
+                    private var photoHref : String? = null,
+                    private var desctiption : String? = null
 
+) {
+
+    fun setdesctiption( des : String)
+    {
+        this.desctiption = des;
+    }
+    fun getdesctiption() : String
+    {
+        return this.desctiption!!
+    }
+    fun setPhotoHref(href : String)
+    {
+        this.photoHref = href;
+    }
+    fun getPhotoHref() : String
+    {
+        return this.photoHref!!
+    }
     fun setName(name : String)
     {
         this.name = name;

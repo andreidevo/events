@@ -11,29 +11,29 @@ class Utils {
         if( mon == "янв" || mon == "jan")
             return 0
         else if( mon == "фев" || mon == "feb")
-            return 1;
+            return 1
         else if( mon == "мар" || mon == "mar")
-            return 2;
+            return 2
         else if( mon == "апр" || mon == "apr")
-            return 3;
+            return 3
         else if( mon == "май" || mon == "may")
-            return 4;
+            return 4
         else if( mon == "июн" || mon == "jun")
-            return 5;
+            return 5
         else if( mon == "июл" || mon == "jul")
-            return 6;
+            return 6
         else if( mon == "авг" || mon == "aug")
-            return 7;
+            return 7
         else if( mon == "сеп" || mon == "sep")
-            return 8;
+            return 8
         else if( mon == "окт" || mon == "oct")
-            return 9;
+            return 9
         else if( mon == "ноя" || mon == "nov")
-            return 10;
+            return 10
         else if( mon == "дек" || mon == "dec")
             return 11
 
-        return -1;
+        return -1
     }
     fun convertNumToMonth( month : Int, len : Int) : String
     {
