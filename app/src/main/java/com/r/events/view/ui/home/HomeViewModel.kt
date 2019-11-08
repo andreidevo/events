@@ -16,6 +16,7 @@ class HomeViewModel : ViewModel(){
 
     fun setupRecyclerView(context: Context, recyclerView: RecyclerView){
         val eventAdapter = EventAdapter(context, list)
+        //eventAdapter.setHasStableIds(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = eventAdapter
     }
@@ -29,5 +30,12 @@ class HomeViewModel : ViewModel(){
             mainViewModel.getDataFromPage()
 
         }
+    }
+    fun getData( fragment: Fragment, context: Context)
+    {
+        val mainViewModel =
+            ViewModelProviders.of(fragment).get(MainViewModel::class.java)
+        mainViewModel.getContext(context)
+        mainViewModel.getDataFromPage()
     }
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 import com.r.events.R
 import com.r.events.model.EventObject
@@ -26,14 +27,18 @@ class EventAdapter(private val context: Context, private val events: ArrayList<E
 
     override fun onBindViewHolder(holder: EventHolder, position: Int) {
         val eventObject = events[position]
-        holder.eventDate.text = "13 ОКТ 2019" // ToDo исправить на правильную дату
+
+        holder.eventDate.text = eventObject.getDataNormal(eventObject.RUS, eventObject.TEXT_FORMAN) // ToDo исправить на правильную дату
+        Glide.with(context).load(eventObject.getPhotoHref()).into(holder.eventImage)
         holder.eventImage.setImageURI(Uri.parse(eventObject.getPhotoHref()))
+
         holder.eventTitle.text = eventObject.getName()
     }
 
     override fun getItemCount(): Int {
         return events.size
     }
+
 
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val eventTitle: TextView = itemView.findViewById(R.id.event_title)

@@ -11,4 +11,5 @@
     <color name="colorPurple">#778CF0</color>
     <color name="white">#FFF</color>
     <color name="blue_inactive">#5C8196</color>
+    <color name="mainColor">#E03C3C</color>
 </resources>

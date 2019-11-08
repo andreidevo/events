@@ -2,7 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,11 +11,18 @@
         android:orientation="horizontal"
         android:padding="20dp">
 
-        <ImageView
-        android:id="@+id/event_image"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:src="@color/blue_inactive"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="10dp">
+            <ImageView
+                android:id="@+id/event_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/blue_inactive"/>
+        </androidx.cardview.widget.CardView>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -28,12 +36,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="13 OCT 2019"
-                android:textColor="@color/colorRed"/>
+                android:textSize="16sp"
+                android:fontFamily="@font/mu2"
+                android:textColor="@color/mainColor"/>
 
             <TextView
                 android:id="@+id/event_title"
                 android:layout_width="wrap_content"
                 android:layout_height="27dp"
+                android:textColor="#000"
                 tools:text="Реактивные приложения"
                 android:textSize="20sp"
                 android:fontFamily="@font/robotobold"/>

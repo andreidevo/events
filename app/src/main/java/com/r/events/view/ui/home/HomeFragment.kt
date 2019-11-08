@@ -26,8 +26,8 @@ class HomeFragment : Fragment(){
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_home)
 
         homeViewModel.setupRecyclerView(view.context, recyclerView)
-        homeViewModel.setupButton(btn, this, view.context)
-
+        //homeViewModel.setupButton(btn, this, view.context)
+        homeViewModel.getData(this, view.context)
         return view
 
     }
