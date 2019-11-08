@@ -63,7 +63,7 @@ class PagesParse(private var model : Model) {
                         }catch (e : Exception){}
 
                         try {
-                            var check = i.getElementsByClass("event-list-item__info_online").text()
+                            val check = i.getElementsByClass("event-list-item__info_online").text()
                             if( check != "")
                                 eventObject.setOnline(true)
                             else
@@ -90,6 +90,7 @@ class PagesParse(private var model : Model) {
                             eventObject.setDate(str)
                             if( CheckWithFilters.check(eventObject))
                             {
+                                eventObject.setType("0")
                                 list.add(eventObject)
                                 model.pushNotification(eventObject.getName(),
                                     dateStr,
@@ -126,12 +127,77 @@ class PagesParse(private var model : Model) {
 
                     } catch (e: Exception) { }
                 }
+                val x = 5;
 
             } catch (e: IOException) {
                 e.printStackTrace()
             }
         }
     }
+    fun russian_hack( ) {
 
+        //error
+        thread {
+            val doc: Document
+
+            try {
+                doc = Jsoup.connect("https://russianhackers.org/hackathons")
+                    .maxBodySize(0)
+                    .timeout(600000)
+                    .get()
+
+                val div: Elements =
+                    doc.getElementsByClass("hackatons-week-block")
+
+                val s = 5
+
+                for(i in 0 until div.size)
+                {
+                    //hackathon-block-splitter
+                    val eventObject  = EventObject()
+                    val element : Elements = div[i].getElementsByClass("hackathon-block-splitter")
+                    //create eventObj
+                }
+
+            } catch (e: Exception) { }
+        }
+        //https://beta.russianhackers.org/hackathons
+    }
+    fun dexigner()
+    {
+
+        thread {
+            val doc: Document
+
+            try {
+                doc = Jsoup.connect("https://www.dexigner.com/design-events").get()
+                val elemnt : Element = doc.getElementById("agenda")
+                val elements : Elements = elemnt.getElementsByClass("event")
+
+                for(i in 0 until elements.size)
+                {
+                    val eventObject = EventObject()
+                    try{
+                        eventObject.setdesctiption(elements[i].getElementsByTag("p")[0].text())
+                        eventObject.setName(elements[i].getElementsByTag("h3")[0].text())
+                        eventObject.setPhotoHref( "https://www.dexigner.com${ elements[i].getElementsByTag("img")[0].attr("data-src")}")
+                        eventObject.setHref("https://www.dexigner.com${elements[i].getElementsByTag("a").attr("href")}")
+                        eventObject.setLocation( elements[i].getElementsByClass("location").text())
+                        eventObject.setType("1")
+                        val date = elements[i].getElementsByTag("time").text()
+
+                        list.add(eventObject)
+                        val f = 5
+
+                    }catch (e : Exception){}
+                }
+
+                val opa = 1
+
+
+                }catch (e : Exception) {}
+        }
+
+    }
 
 }

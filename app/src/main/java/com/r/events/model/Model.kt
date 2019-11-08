@@ -60,10 +60,10 @@ class Model {
             builder = NotificationCompat.Builder(context!!, id)
             builder.setContentTitle(date)
                 .setSmallIcon(android.R.drawable.ic_popup_reminder)
-                .setContentText(name)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
                 .setTicker(name)
+                .setStyle(NotificationCompat.BigTextStyle().bigText(name))
 
 
             if(lightNotification)
@@ -90,6 +90,9 @@ class Model {
                 builder.setVibrate(longArrayOf(1000, 1000))
         }
 
+        val str = "";
+
+
         val notification : Notification = builder.build()
         //проверяем на null
         if( checkNotification(name, date))
@@ -108,7 +111,8 @@ class Model {
         //ссылкаемся на класс с парсингами
         val PagesParse = PagesParse(this)
         PagesParse.it_events()
-
+        //PagesParse.russian_hack()
+        PagesParse.dexigner()
 
     }
 
