@@ -14,18 +14,20 @@ import com.r.events.model.list
 //ToDo сделать так, чтобы context не нужно было постоянно ложить в каждый метод
 class HomeViewModel : ViewModel(){
 
-    fun setupRecyclerView(context: Context, recyclerView: RecyclerView): Unit{
-        val eventAdapter: EventAdapter = EventAdapter(context, list)
+    fun setupRecyclerView(context: Context, recyclerView: RecyclerView){
+        val eventAdapter = EventAdapter(context, list)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = eventAdapter
     }
 
-    fun setupButton(btn: Button, fragment: Fragment, context: Context): Unit{
+    fun setupButton(btn: Button, fragment: Fragment, context: Context){
+
         btn.setOnClickListener{
             val mainViewModel =
                 ViewModelProviders.of(fragment).get(MainViewModel::class.java)
             mainViewModel.getContext(context)
             mainViewModel.getDataFromPage()
+
         }
     }
 }

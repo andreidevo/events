@@ -22,6 +22,7 @@ class HomeFragment : Fragment(){
         val view = layoutInflater.inflate(R.layout.fragment_home, container, false)
 
         val btn = view.findViewById(R.id.get) as Button
+
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_home)
 
         homeViewModel.setupRecyclerView(view.context, recyclerView)

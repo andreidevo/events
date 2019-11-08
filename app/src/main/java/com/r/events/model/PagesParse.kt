@@ -74,17 +74,11 @@ class PagesParse(private var model : Model) {
 
                         val arr = dateStr.split(' ')
                         //фильтруем
-                        var key = 1
                         if (dateStr.contains('-')) {
                             val dayMin = arr[0].toInt()
                             val dayMax = arr[2].toInt()
                             val month = Utils.convertMonth(arr[3])
                             val year = arr[4].toInt()
-
-//                            if (dayMin < mindate)
-//                                continue
-//                            if (dayMax > maxdate)
-//                                break
 
                             val str = arrayListOf(arrayListOf(dayMin, month, year))
                             eventObject.setDate(str)
@@ -104,11 +98,6 @@ class PagesParse(private var model : Model) {
                             val month = Utils.convertMonth(arr[1])
                             val year = arr[2].toInt()
 
-//                            if (days < mindate)
-//                                continue
-//                            if (days > maxdate)
-//                                break
-
                             val str = arrayListOf(arrayListOf(days, month, year))
                             eventObject.setDate(str)
                             if( CheckWithFilters.check(eventObject))
@@ -121,10 +110,6 @@ class PagesParse(private var model : Model) {
                                 )
                             }
                         }
-
-
-
-
                     } catch (e: Exception) { }
                 }
                 val x = 5;
@@ -133,35 +118,6 @@ class PagesParse(private var model : Model) {
                 e.printStackTrace()
             }
         }
-    }
-    fun russian_hack( ) {
-
-        //error
-        thread {
-            val doc: Document
-
-            try {
-                doc = Jsoup.connect("https://russianhackers.org/hackathons")
-                    .maxBodySize(0)
-                    .timeout(600000)
-                    .get()
-
-                val div: Elements =
-                    doc.getElementsByClass("hackatons-week-block")
-
-                val s = 5
-
-                for(i in 0 until div.size)
-                {
-                    //hackathon-block-splitter
-                    val eventObject  = EventObject()
-                    val element : Elements = div[i].getElementsByClass("hackathon-block-splitter")
-                    //create eventObj
-                }
-
-            } catch (e: Exception) { }
-        }
-        //https://beta.russianhackers.org/hackathons
     }
     fun dexigner()
     {
@@ -185,10 +141,45 @@ class PagesParse(private var model : Model) {
                         eventObject.setLocation( elements[i].getElementsByClass("location").text())
                         eventObject.setType("1")
                         val date = elements[i].getElementsByTag("time").text()
+                        //Nov 20 - Nov 22, 2019
+                        //Nov 22, 2019 (in 14 days)
+
+                        //ToDo добавить двойную дату
+                        if(date.contains("ends"))
+                        {
+                            //ends Dec 14, 2019 (1 month left)
+                            val arr = date.split(' ')
+                            val month = Utils.convertMonth(arr[1])
+                            val day = arr[2].dropLast(1).toInt()
+                            val year = arr[3].toInt()
+                            eventObject.setDate(arrayListOf(arrayListOf(day, month, year)))
+                        }
+                        else if(date.contains("-"))
+                        {
+                            //Nov 20 - Nov 22, 2019
+                            val arr = date.split(",")
+                            val year = arr[1].drop(1).toInt()
+                            val dat = arr[0].split(" - ")
+                            val fDate = dat[0].split(' ')
+                            val sDate = dat[1].split(' ')
+                            val fDay = fDate[1].toInt()
+                            val sDay = sDate[1].toInt()
+                            val fMonth = Utils.convertMonth(fDate[0])
+                            val sMonth = Utils.convertMonth(sDate[0])
+                            eventObject.setDate(arrayListOf(arrayListOf(fDay, fMonth, year), arrayListOf(sDay, sMonth, year)))
+                        }
+                        else
+                        {
+                            //Dec 14, 2019
+                            val arr = date.split(",")
+                            val year = arr[1].drop(1).toInt()
+                            val dat = arr[0].split(' ')
+                            val month = Utils.convertMonth(dat[0])
+                            val day = dat[1].toInt()
+                            eventObject.setDate(arrayListOf(arrayListOf(day, month, year)))
+                        }
 
                         list.add(eventObject)
-                        val f = 5
-
                     }catch (e : Exception){}
                 }
 
