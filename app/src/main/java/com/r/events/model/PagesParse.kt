@@ -69,7 +69,7 @@ class PagesParse(private var model : Model) {
                             else
                                 eventObject.setOnline(false)
                         }catch (e : Exception){
-                            eventObject.setOnline(false) //LOOOOOOOL genius !
+                            eventObject.setOnline(false) //LOOOOOOOL genius ! (idiot)
                         }
 
                         val arr = dateStr.split(' ')
