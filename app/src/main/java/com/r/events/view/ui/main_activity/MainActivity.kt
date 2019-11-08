@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity() {
             ScreenSlidePagerAdapter(fragList, supportFragmentManager)
 
 
-
-
         view_pager.setAdapter(pagerAdapter)
         view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(i: Int, v: Float, i1: Int) {

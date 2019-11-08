@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.ImageView
 
 class Utils {
+
     fun convertMonth(month : String) : Int
     {
         val mon = month.toLowerCase().substring(0,3)
@@ -38,6 +39,7 @@ class Utils {
 
     val RUS : Int = 0
     val ENG : Int = 1
+
     fun convertNumToMonth( month : Int, len : Int) : String
     {
         if( len == RUS)
@@ -74,7 +76,7 @@ class Utils {
     }
     fun interests( id : Int, len : Int) : String
     {
-        if( len == 0) // rus
+        if( len == RUS)
         {
             if( id == 0)
                 return "программирование"
@@ -88,7 +90,7 @@ class Utils {
     }
     fun type( id : Int, len : Int) : String
     {
-        if( len == 0) // rus
+        if( len == RUS)
         {
             if( id == 0)
                 return "Курс"
@@ -109,9 +111,5 @@ class Utils {
         if( name == null || date == null)
             return false
         return true
-    }
-    fun imageFromNet(href : String, image : ImageView, context: Context)
-    {
-        //Glide.with(context).load(href).into(image)
     }
 }
