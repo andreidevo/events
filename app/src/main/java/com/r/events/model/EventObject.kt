@@ -8,7 +8,7 @@ class EventObject ( private var name : String?= null,
                     private var online : Boolean?  = null,
                     private var href : String? = null,
                     private var photoHref : String? = null,
-                    private var desctiption : String? = null
+                    private var description : String? = null
 
 ) {
     val RUS: Int = 0
@@ -18,12 +18,12 @@ class EventObject ( private var name : String?= null,
     val TEXT_FORMAN: Int = 1 // 1 Nov 2019
 
 
-    fun setdesctiption(des: String) {
-        this.desctiption = des;
+    fun setDescription(des: String) {
+        this.description = des;
     }
 
-    fun getdesctiption(): String {
-        return this.desctiption!!
+    fun getDescription(): String {
+        return this.description!!
     }
 
     fun setPhotoHref(href: String) {

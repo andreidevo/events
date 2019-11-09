@@ -24,6 +24,7 @@ class HomeFragment : Fragment(){
         val btn = view.findViewById(R.id.get) as Button
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_home)
+        recyclerView.setHasFixedSize(true)
 
         homeViewModel.setupRecyclerView(view.context, recyclerView)
         //homeViewModel.setupButton(btn, this, view.context)

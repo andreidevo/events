@@ -30,7 +30,6 @@ class EventAdapter(private val context: Context, private val events: ArrayList<E
 
         holder.eventDate.text = eventObject.getDataNormal(eventObject.RUS, eventObject.TEXT_FORMAN) // ToDo исправить на правильную дату
         Glide.with(context).load(eventObject.getPhotoHref()).into(holder.eventImage)
-        holder.eventImage.setImageURI(Uri.parse(eventObject.getPhotoHref()))
 
         holder.eventTitle.text = eventObject.getName()
     }

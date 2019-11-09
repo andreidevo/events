@@ -6,7 +6,6 @@ import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import java.io.IOException
 import java.lang.Exception
-import java.net.HttpRetryException
 import kotlin.concurrent.thread
 var list : ArrayList<EventObject> = arrayListOf()
 var filters : Filters = Filters("all", arrayListOf(arrayListOf()), "all","all" )
@@ -127,14 +126,14 @@ class PagesParse(private var model : Model) {
 
             try {
                 doc = Jsoup.connect("https://www.dexigner.com/design-events").get()
-                val elemnt : Element = doc.getElementById("agenda")
-                val elements : Elements = elemnt.getElementsByClass("event")
+                val element : Element = doc.getElementById("agenda")
+                val elements : Elements = element.getElementsByClass("event")
 
                 for(i in 0 until elements.size)
                 {
                     val eventObject = EventObject()
                     try{
-                        eventObject.setdesctiption(elements[i].getElementsByTag("p")[0].text())
+                        eventObject.setDescription(elements[i].getElementsByTag("p")[0].text())
                         eventObject.setName(elements[i].getElementsByTag("h3")[0].text())
                         eventObject.setPhotoHref( "https://www.dexigner.com${ elements[i].getElementsByTag("img")[0].attr("data-src")}")
                         eventObject.setHref("https://www.dexigner.com${elements[i].getElementsByTag("a").attr("href")}")
