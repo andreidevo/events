@@ -2,22 +2,21 @@ package com.r.events.view.ui.main_activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Contacts
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener
 import com.r.events.MainViewModel
 import com.r.events.R
 import com.r.events.adapter.ScreenSlidePagerAdapter
+import com.r.events.model.PagesParse
 import com.r.events.model.filters
 import com.r.events.view.ui.Settings.SettingsFragment
 import com.r.events.view.ui.favourites.FavouritesFragment
 import com.r.events.view.ui.home.HomeFragment
 import com.r.events.view.ui.user_info.UserInfoFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
@@ -26,9 +25,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var viewmodel = MainViewModel()
-        var Thread = GlobalScope.async{ viewmodel.getDataFromPage()}
-        var someVar = runBlocking { Thread.await()}
+        //запускаем асинхрон
+        val Thread = GlobalScope.launch{
+            val page = PagesParse()
+            suspend{
+                page.dexigner()
+                page.it_events()
+
+            }.invoke()
+        }
+        //ждем пока выполнятся функции
+        Thread.join()
 
         val fragList = ArrayList<Fragment>()
 

@@ -1,6 +1,7 @@
 package com.r.events.model
 
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -13,15 +14,15 @@ import kotlin.concurrent.thread
 var list : ArrayList<EventObject> = arrayListOf()
 var filters : Filters = Filters("all", arrayListOf(arrayListOf()), "all","all" )
 
-class PagesParse(private var model : Model) {
+class PagesParse() {
 
     //это сделать глобальным потом
     var Utils  = Utils()
     var CheckWithFilters = CheckWithFilters()
 
-    fun it_events()
+    suspend fun it_events()
     {
-        thread {
+       val job =  GlobalScope.launch {
             val doc: Document
             try {
                 doc = Jsoup.connect("https://it-events.com/").get()
@@ -84,7 +85,6 @@ class PagesParse(private var model : Model) {
                             {
                                 eventObject.setType("0")
                                 list.add(eventObject)
-                                model.pushNotification(eventObject.getName(), dateStr, null)
                             }
                         }
                         else {
@@ -97,21 +97,17 @@ class PagesParse(private var model : Model) {
 
                             //ToDo тут фильтр будет
                             list.add(eventObject)
-                            model.pushNotification(
-                                eventObject.getName(),
-                                dateStr,
-                                null
-                            )
                         }
                     } catch (e: Exception) { }
                 }
             } catch (e: IOException) { }
         }
+        job.join()
     }
-    fun dexigner()
+    suspend fun dexigner()
     {
 
-        thread {
+        var opa = GlobalScope.launch {
             val doc: Document
             try {
                 doc = Jsoup.connect("https://www.dexigner.com/design-events").get()
@@ -202,7 +198,7 @@ class PagesParse(private var model : Model) {
                 }
                 }catch (e : Exception) {}
         }
-
+        opa.join()
     }
     fun getHash(eventObject: EventObject) : Long
     {

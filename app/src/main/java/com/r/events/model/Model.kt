@@ -106,13 +106,13 @@ class Model {
         return true
     }
     //функция парсинга сайтов
-    fun getDataFromPage()
+     fun getDataFromPage()
     {
         //ссылкаемся на класс с парсингами
-        val PagesParse = PagesParse(this)
-        PagesParse.it_events()
+        //val PagesParse = PagesParse(this)
+        //PagesParse.it_events()
         //PagesParse.russian_hack()
-        PagesParse.dexigner()
+        //PagesParse.dexigner()
 
     }
 
