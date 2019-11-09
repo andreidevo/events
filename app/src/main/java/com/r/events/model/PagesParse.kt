@@ -1,14 +1,18 @@
 package com.r.events.model
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.runBlocking
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import java.io.IOException
 import java.lang.Exception
+import java.net.HttpRetryException
 import kotlin.concurrent.thread
 var list : ArrayList<EventObject> = arrayListOf()
 var filters : Filters = Filters("all", arrayListOf(arrayListOf()), "all","all" )
+
 class PagesParse(private var model : Model) {
 
     //это сделать глобальным потом
@@ -17,65 +21,60 @@ class PagesParse(private var model : Model) {
 
     fun it_events()
     {
-
-        //оптимизируем поиск по всем страницам сайта
-        val dates = filters.getDate()
-        //максимальная дата из поиска
-        val maxdate = dates[dates.size - 1][0]
-        //минимальная дата из посика
-        val mindate = dates[0][0]
-
         thread {
             val doc: Document
-
             try {
                 doc = Jsoup.connect("https://it-events.com/").get()
-
                 val div: Elements = doc.getElementsByClass("section")[0].getElementsByClass("event-list-item")
 
                 //пробегаемся по всем записям
-                for(z in  0 until  div.size) {
+                for(eventer in  0 until  div.size) {
                     try {
-                        val i = div[z]
+                        val SomeElement = div[eventer]
 
                         //создаем объект мероприятия
                         val eventObject = EventObject()
                         //заполняем его
 
-                        eventObject.setType(i.getElementsByClass("event-list-item__type").text())
 
-                        val Element: Element = i.getElementsByClass("event-list-item__title")[0]
+                        //тип мероприятия
+                        eventObject.setType(SomeElement.getElementsByClass("event-list-item__type").text())
+
+                        val Element: Element = SomeElement.getElementsByClass("event-list-item__title")[0]
                         val href = Element.attr("href")
+                        //имя мероприятия
                         eventObject.setName(Element.text())
+                        //ссылка на страницу с мероприятияем
                         eventObject.setHref(href)
-                        val dateStr = i.getElementsByClass("event-list-item__info")[0].text()
 
-                        val photoh = i.getElementsByClass("event-list-item__image")[0]
+                        val dateStr = SomeElement.getElementsByClass("event-list-item__info")[0].text()
+                        val photoh = SomeElement.getElementsByClass("event-list-item__image")[0]
                         val photoH = photoh.attr("style")
                         val idx1 = 22
                         val idx2 = photoH.indexOf('.') + 4
-                        eventObject.setPhotoHref(
-                            "https://it-events.com${photoH.substring(idx1, idx2)}"
-                        )
+
+                        //ссылка на фото мероприятия
+                        eventObject.setPhotoHref("https://it-events.com${photoH.substring(idx1, idx2)}")
+
+                        //местоположения мероприятия
                         try {
-                            eventObject.setLocation(i.getElementsByClass("event-list-item__info_location").text())
+                            eventObject.setLocation(SomeElement.getElementsByClass("event-list-item__info_location").text())
                         }catch (e : Exception){}
 
+                        //онлайн траснляция или нет
                         try {
-                            val check = i.getElementsByClass("event-list-item__info_online").text()
+                            val check = SomeElement.getElementsByClass("event-list-item__info_online").text()
                             if( check != "")
                                 eventObject.setOnline(true)
                             else
                                 eventObject.setOnline(false)
-                        }catch (e : Exception){
-                            eventObject.setOnline(false) //LOOOOOOOL genius ! (idiot)
-                        }
+                        }catch (e : Exception){ }
 
                         val arr = dateStr.split(' ')
-                        //фильтруем
+
+                        //форматируем дату
                         if (dateStr.contains('-')) {
                             val dayMin = arr[0].toInt()
-                            val dayMax = arr[2].toInt()
                             val month = Utils.convertMonth(arr[3])
                             val year = arr[4].toInt()
 
@@ -85,12 +84,8 @@ class PagesParse(private var model : Model) {
                             {
                                 eventObject.setType("0")
                                 list.add(eventObject)
-                                model.pushNotification(eventObject.getName(),
-                                    dateStr,
-                                    null
-                                )
+                                model.pushNotification(eventObject.getName(), dateStr, null)
                             }
-
                         }
                         else {
                             val days = arr[0].toInt()
@@ -111,11 +106,7 @@ class PagesParse(private var model : Model) {
                         }
                     } catch (e: Exception) { }
                 }
-                val x = 5;
-
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+            } catch (e: IOException) { }
         }
     }
     fun dexigner()
@@ -123,23 +114,23 @@ class PagesParse(private var model : Model) {
 
         thread {
             val doc: Document
-
             try {
                 doc = Jsoup.connect("https://www.dexigner.com/design-events").get()
-                val element : Element = doc.getElementById("agenda")
-                val elements : Elements = element.getElementsByClass("event")
+                val elemnt : Element = doc.getElementById("agenda")
+                val elements : Elements = elemnt.getElementsByClass("event")
 
-                for(i in 0 until elements.size)
+                for(SomeElement in 0 until elements.size)
                 {
                     val eventObject = EventObject()
                     try{
-                        eventObject.setDescription(elements[i].getElementsByTag("p")[0].text())
-                        eventObject.setName(elements[i].getElementsByTag("h3")[0].text())
-                        eventObject.setPhotoHref( "https://www.dexigner.com${ elements[i].getElementsByTag("img")[0].attr("data-src")}")
-                        eventObject.setHref("https://www.dexigner.com${elements[i].getElementsByTag("a").attr("href")}")
-                        eventObject.setLocation( elements[i].getElementsByClass("location").text())
+                        eventObject.setDescription(elements[SomeElement].getElementsByTag("p")[0].text())
+                        eventObject.setName(elements[SomeElement].getElementsByTag("h3")[0].text())
+                        eventObject.setPhotoHref( "https://www.dexigner.com${ elements[SomeElement].getElementsByTag("img")[0].attr("data-src")}")
+                        eventObject.setHref("https://www.dexigner.com${elements[SomeElement].getElementsByTag("a").attr("href")}")
+                        eventObject.setLocation( elements[SomeElement].getElementsByClass("location").text())
                         eventObject.setType("1")
-                        val date = elements[i].getElementsByTag("time").text()
+                        val date = elements[SomeElement].getElementsByTag("time").text()
+
                         //Nov 20 - Nov 22, 2019
                         //Nov 22, 2019 (in 14 days)
 
@@ -148,10 +139,38 @@ class PagesParse(private var model : Model) {
                         {
                             //ends Dec 14, 2019 (1 month left)
                             val arr = date.split(' ')
-                            val month = Utils.convertMonth(arr[1])
+                            var month = Utils.convertMonth(arr[1])
                             val day = arr[2].dropLast(1).toInt()
-                            val year = arr[3].toInt()
-                            eventObject.setDate(arrayListOf(arrayListOf(day, month, year)))
+                            var year = arr[3].toInt()
+                            val FirstArr = arrayListOf(day, month, year)
+                            var day2 = arr[4].drop(1).toInt() + day
+                            var month2 = 0
+                            if( arr[5].contains("month"))
+                            {
+                                month2 = month + day2
+                                if( month2 > 12)
+                                {
+                                    month2 -=12
+                                    year++
+                                }
+
+                                eventObject.setDate(arrayListOf(FirstArr, arrayListOf(day, month2, year)))
+                            }
+                            else if( arr[5].contains("days"))
+                            {
+                                if( day2 > 29)
+                                {
+                                    month++
+                                    day2 -= 29
+                                    if( month > 12)
+                                    {
+                                        month -= 12
+                                        year++
+                                    }
+                                }
+                                eventObject.setDate(arrayListOf(FirstArr, arrayListOf(day2, month, year)))
+                            }
+
                         }
                         else if(date.contains("-"))
                         {
@@ -178,16 +197,21 @@ class PagesParse(private var model : Model) {
                             eventObject.setDate(arrayListOf(arrayListOf(day, month, year)))
                         }
 
+
                         list.add(eventObject)
                     }catch (e : Exception){}
                 }
-
-                val opa = 1
-
-
                 }catch (e : Exception) {}
         }
 
+    }
+    fun getHash(eventObject: EventObject) : Long
+    {
+        val const = 49
+        val name = eventObject.getName()
+        val photo = eventObject.getPhotoHref()
+
+        return name.length * const + photo[photo.length-1].toLong() * const
     }
 
 }

@@ -23,7 +23,7 @@ class HomeFragment : Fragment(){
 
         val btn = view.findViewById(R.id.get) as Button
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_home)
+        val recyclerView = view.findViewById(R.id.recycler_home) as RecyclerView
         recyclerView.setHasFixedSize(true)
 
         homeViewModel.setupRecyclerView(view.context, recyclerView)

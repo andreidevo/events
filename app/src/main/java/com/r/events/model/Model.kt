@@ -33,6 +33,7 @@ class Model {
     var lightNotification = true
 
     private var idG = 0
+
     fun pushNotification(name : String?, date : String?, url: URL?){
 
         //то, что откроется после нажатия
@@ -90,10 +91,9 @@ class Model {
                 builder.setVibrate(longArrayOf(1000, 1000))
         }
 
-        val str = "";
-
 
         val notification : Notification = builder.build()
+
         //проверяем на null
         if( checkNotification(name, date))
             notificationManager.notify(++idG, notification)
@@ -113,8 +113,6 @@ class Model {
         PagesParse.it_events()
         //PagesParse.russian_hack()
         PagesParse.dexigner()
-
-
 
     }
 
