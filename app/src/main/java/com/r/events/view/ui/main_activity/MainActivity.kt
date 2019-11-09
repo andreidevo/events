@@ -26,16 +26,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //запускаем асинхрон
-        val Thread = GlobalScope.launch{
+        GlobalScope.launch{
             val page = PagesParse()
-            suspend{
-                page.dexigner()
-                page.it_events()
+            page.getDataFromPage()
+        }.join()//ждем пока выполнятся функции
 
-            }.invoke()
-        }
-        //ждем пока выполнятся функции
-        Thread.join()
 
         val fragList = ArrayList<Fragment>()
 
@@ -44,15 +39,8 @@ class MainActivity : AppCompatActivity() {
         fragList.add(SettingsFragment())
         fragList.add(UserInfoFragment())
 
-
         val pagerAdapter =
             ScreenSlidePagerAdapter(fragList, supportFragmentManager)
-
-
-
-
-
-
         view_pager.setAdapter(pagerAdapter)
         view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(i: Int, v: Float, i1: Int) {
