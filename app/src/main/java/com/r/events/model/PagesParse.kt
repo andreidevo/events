@@ -94,15 +94,14 @@ class PagesParse(private var model : Model) {
 
                             val str = arrayListOf(arrayListOf(days, month, year))
                             eventObject.setDate(str)
-                            if( CheckWithFilters.check(eventObject))
-                            {
-                                list.add(eventObject)
-                                model.pushNotification(
-                                    eventObject.getName(),
-                                    dateStr,
-                                    null
-                                )
-                            }
+
+                            //ToDo тут фильтр будет
+                            list.add(eventObject)
+                            model.pushNotification(
+                                eventObject.getName(),
+                                dateStr,
+                                null
+                            )
                         }
                     } catch (e: Exception) { }
                 }

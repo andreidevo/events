@@ -20,14 +20,8 @@ class HomeFragment : Fragment(){
     ): View? {
         val homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val view = layoutInflater.inflate(R.layout.fragment_home, container, false)
-
-        val btn = view.findViewById(R.id.get) as Button
-
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_home)
-
         homeViewModel.setupRecyclerView(view.context, recyclerView)
-        //homeViewModel.setupButton(btn, this, view.context)
-        homeViewModel.getData(this, view.context)
         return view
 
     }
