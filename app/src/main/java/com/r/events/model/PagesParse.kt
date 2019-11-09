@@ -20,6 +20,10 @@ class PagesParse() {
     var Utils  = Utils()
     var CheckWithFilters = CheckWithFilters()
 
+    suspend fun getDataFromPage(){
+        it_events()
+        dexigner()
+    }
     suspend fun it_events()
     {
        val job =  GlobalScope.launch {

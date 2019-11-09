@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="13 OCT 2019"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:fontFamily="@font/mu2"
                 android:textColor="@color/mainColor"/>
 
@@ -46,7 +46,7 @@
                 android:layout_height="27dp"
                 android:textColor="#000"
                 tools:text="Реактивные приложения"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:fontFamily="@font/robotobold"/>
 
         </LinearLayout>
