@@ -13,12 +13,14 @@ import com.bumptech.glide.Glide
 
 import com.r.events.R
 import com.r.events.model.EventObject
+import com.r.events.model.list
 
 import java.util.ArrayList
 
 class EventAdapter(private val context: Context, private val events: ArrayList<EventObject>) :
     RecyclerView.Adapter<EventAdapter.EventHolder>() {
 
+    private var id = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.event_item, parent, false)
 
@@ -30,7 +32,6 @@ class EventAdapter(private val context: Context, private val events: ArrayList<E
 
         holder.eventDate.text = eventObject.getDataNormal(eventObject.RUS, eventObject.TEXT_FORMAN) // ToDo исправить на правильную дату
         Glide.with(context).load(eventObject.getPhotoHref()).into(holder.eventImage)
-
         holder.eventTitle.text = eventObject.getName()
     }
 
@@ -38,6 +39,15 @@ class EventAdapter(private val context: Context, private val events: ArrayList<E
         return events.size
     }
 
+    override fun getItemId(position: Int): Long {
+
+        return position.toLong()
+    }
+
+    
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
 
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val eventTitle: TextView = itemView.findViewById(R.id.event_title)
