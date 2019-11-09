@@ -130,6 +130,7 @@ class PagesParse(private var model : Model) {
                         eventObject.setLocation( elements[SomeElement].getElementsByClass("location").text())
                         eventObject.setType("1")
                         val date = elements[SomeElement].getElementsByTag("time").text()
+
                         //Nov 20 - Nov 22, 2019
                         //Nov 22, 2019 (in 14 days)
 
@@ -138,10 +139,38 @@ class PagesParse(private var model : Model) {
                         {
                             //ends Dec 14, 2019 (1 month left)
                             val arr = date.split(' ')
-                            val month = Utils.convertMonth(arr[1])
+                            var month = Utils.convertMonth(arr[1])
                             val day = arr[2].dropLast(1).toInt()
-                            val year = arr[3].toInt()
-                            eventObject.setDate(arrayListOf(arrayListOf(day, month, year)))
+                            var year = arr[3].toInt()
+                            val FirstArr = arrayListOf(day, month, year)
+                            var day2 = arr[4].drop(1).toInt() + day
+                            var month2 = 0
+                            if( arr[5].contains("month"))
+                            {
+                                month2 = month + day2
+                                if( month2 > 12)
+                                {
+                                    month2 -=12
+                                    year++
+                                }
+
+                                eventObject.setDate(arrayListOf(FirstArr, arrayListOf(day, month2, year)))
+                            }
+                            else if( arr[5].contains("days"))
+                            {
+                                if( day2 > 29)
+                                {
+                                    month++
+                                    day2 -= 29
+                                    if( month > 12)
+                                    {
+                                        month -= 12
+                                        year++
+                                    }
+                                }
+                                eventObject.setDate(arrayListOf(FirstArr, arrayListOf(day2, month, year)))
+                            }
+
                         }
                         else if(date.contains("-"))
                         {
@@ -174,17 +203,6 @@ class PagesParse(private var model : Model) {
                 }
                 }catch (e : Exception) {}
         }
-
-    }
-    fun pageChecker()
-    {
-        //задача - сделать отслеживание новых записей на сайте.
-        //сделать асинхронный процесс, с выводом уведомления.
-        //каким-то образом нужно хранить последний элемент, который был на прошлом шаге.
-        //можно сделать через hash-codes
-
-
-
 
     }
     fun getHash(eventObject: EventObject) : Long

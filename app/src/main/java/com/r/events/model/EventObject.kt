@@ -2,7 +2,7 @@ package com.r.events.model
 
 
 class EventObject ( private var name : String?= null,
-                    private var date : ArrayList<ArrayList<Int>>?= null,
+                    private var  date : ArrayList<ArrayList<Int>>?= null,
                     private var type : String?= null,
                     private var location : String? = null,
                     private var online : Boolean?  = null,
