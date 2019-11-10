@@ -1,6 +1,6 @@
 package com.r.events.model
 
-
+val utils = Utils()
 class EventObject ( private var name : String?= null,
                     private var  date : ArrayList<ArrayList<Int>>?= null,
                     private var type : String?= null,
@@ -87,7 +87,6 @@ class EventObject ( private var name : String?= null,
                 if (format == NUM_FORMAT)
                     return "от ${data[0][0]}-${data[0][1]}-${data[0][2]} до ${data[1][0]}-${data[1][1]}-${data[1][2]}"
                 else if (format == TEXT_FORMAN) {
-                    val utils = Utils()
                     val firstMonth = utils.convertNumToMonth(data[0][1], len)
                     val secMonth = utils.convertNumToMonth(data[1][1], len)
                     val string = "от ${data[0][0]} ${firstMonth} ${data[0][2]} до ${data[1][0]} ${secMonth} ${data[1][2]}"
@@ -98,7 +97,6 @@ class EventObject ( private var name : String?= null,
                 if (format == NUM_FORMAT)
                     return "${data[0][0]}-${data[0][1]}-${data[0][2]}"
                 else if (format == TEXT_FORMAN) {
-                    val utils = Utils()
                     val FirstMonth = utils.convertNumToMonth(data[0][1], len)
                     val string = "${data[0][0]} ${FirstMonth} ${data[0][2]}"
                     return string
@@ -111,7 +109,6 @@ class EventObject ( private var name : String?= null,
                 if (format == NUM_FORMAT)
                     return "${data[0][0]}-${data[0][1]}-${data[0][2]} for ${data[1][0]}-${data[1][1]}-${data[1][2]}"
                 else if (format == TEXT_FORMAN) {
-                    val utils = Utils()
                     val firstMonth = utils.convertNumToMonth(data[0][1], len)
                     val secMonth = utils.convertNumToMonth(data[1][1], len)
                     val string = "${data[0][0]} ${firstMonth} ${data[0][2]} for ${data[1][0]} ${secMonth} ${data[1][2]}"
@@ -124,7 +121,6 @@ class EventObject ( private var name : String?= null,
                 if (format == NUM_FORMAT)
                     return "${data[0][0]}-${data[0][1]}-${data[0][2]}"
                 else if (format == TEXT_FORMAN) {
-                    val utils = Utils()
                     val FirstMonth = utils.convertNumToMonth(data[0][1], len) //ToDo тут заменить на английский перевод
                     val string = "${data[0][0]} ${FirstMonth} ${data[0][2]}"
                     return string

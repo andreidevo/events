@@ -74,6 +74,7 @@ class Utils {
         }
         return "null_len"
     }
+
     fun interests( id : Int, len : Int) : String
     {
         if( len == RUS)
