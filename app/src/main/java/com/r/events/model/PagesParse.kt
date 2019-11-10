@@ -87,7 +87,7 @@ class PagesParse() {
                             eventObject.setDate(str)
                             if( CheckWithFilters.check(eventObject))
                             {
-                                eventObject.setType("0")
+                                eventObject.setSector(0)
                                 list.add(eventObject)
                             }
                         }
@@ -127,7 +127,7 @@ class PagesParse() {
                         eventObject.setPhotoHref( "https://www.dexigner.com${ elements[SomeElement].getElementsByTag("img")[0].attr("data-src")}")
                         eventObject.setHref("https://www.dexigner.com${elements[SomeElement].getElementsByTag("a").attr("href")}")
                         eventObject.setLocation( elements[SomeElement].getElementsByClass("location").text())
-                        eventObject.setType("1")
+                        eventObject.setSector(1)
                         val date = elements[SomeElement].getElementsByTag("time").text()
 
                         //Nov 20 - Nov 22, 2019

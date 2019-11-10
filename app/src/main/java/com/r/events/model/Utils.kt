@@ -5,6 +5,9 @@ import android.widget.ImageView
 
 class Utils {
 
+    //программирование
+    //дизайн
+    //рисование
     fun convertMonth(month : String) : Int
     {
         val mon = month.toLowerCase().substring(0,3)
@@ -75,8 +78,9 @@ class Utils {
         return "null_len"
     }
 
-    fun interests( id : Int, len : Int) : String
+    fun interestByNum( id : Int, len : Int) : String
     {
+
         if( len == RUS)
         {
             if( id == 0)
@@ -88,6 +92,19 @@ class Utils {
 
         }
         return "null_int"
+    }
+    fun interesByName ( interest : String, len : Int) : Int
+    {
+
+        val string = interest.toLowerCase()
+        if( len == RUS)
+        {
+            if( string == "программирование")
+                return 0
+            else if( string == "дизайн")
+                return 1
+        }
+        return 10
     }
     fun type( id : Int, len : Int) : String
     {

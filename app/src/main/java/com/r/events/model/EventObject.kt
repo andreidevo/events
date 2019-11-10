@@ -2,8 +2,9 @@ package com.r.events.model
 
 val utils = Utils()
 class EventObject ( private var name : String?= null,
-                    private var  date : ArrayList<ArrayList<Int>>?= null,
+                    private var date : ArrayList<ArrayList<Int>>?= null,
                     private var type : String?= null,
+                    private var sector : Int? = null,
                     private var location : String? = null,
                     private var online : Boolean?  = null,
                     private var href : String? = null,
@@ -18,6 +19,14 @@ class EventObject ( private var name : String?= null,
     val TEXT_FORMAN: Int = 1 // 1 Nov 2019
 
 
+    fun setSector( sector : Int)
+    {
+        this.sector = sector
+    }
+    fun getSector() : Int
+    {
+        return  this.sector!!
+    }
     fun setDescription(des: String) {
         this.description = des;
     }
