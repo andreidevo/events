@@ -6,21 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/get"
-        android:layout_width="1dp"
-        android:layout_gravity="center"
-        android:text="get not"
-        android:layout_marginTop="20dp"
-        android:layout_height="1dp">
-
-    </Button>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мероприятия"
+        android:fontFamily="@font/robotobold"
+        android:textColor="@color/colorRed"
+        android:textSize="25sp"
+        android:paddingStart="25dp"
+        android:paddingTop="20dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:paddingTop="20dp"
         android:id="@+id/recycler_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/event_item"/>
+        tools:listitem="@layout/nested_list_of_event_items"/>
 
 
 </LinearLayout>

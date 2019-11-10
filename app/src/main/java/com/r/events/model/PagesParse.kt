@@ -122,7 +122,7 @@ class PagesParse() {
                 {
                     val eventObject = EventObject()
                     try{
-                        eventObject.setdesctiption(elements[SomeElement].getElementsByTag("p")[0].text())
+                        eventObject.setDescription(elements[SomeElement].getElementsByTag("p")[0].text())
                         eventObject.setName(elements[SomeElement].getElementsByTag("h3")[0].text())
                         eventObject.setPhotoHref( "https://www.dexigner.com${ elements[SomeElement].getElementsByTag("img")[0].attr("data-src")}")
                         eventObject.setHref("https://www.dexigner.com${elements[SomeElement].getElementsByTag("a").attr("href")}")

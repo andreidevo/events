@@ -43,7 +43,7 @@
             <TextView
                 android:id="@+id/event_title"
                 android:layout_width="wrap_content"
-                android:layout_height="27dp"
+                android:layout_height="wrap_content"
                 android:textColor="#000"
                 tools:text="Реактивные приложения"
                 android:textSize="18sp"
