@@ -51,6 +51,8 @@ class PagesParse() {
                         eventObject.setName(Element.text())
                         //ссылка на страницу с мероприятияем
                         eventObject.setHref(href)
+                        eventObject.setSector(0)
+
 
                         val dateStr = SomeElement.getElementsByClass("event-list-item__info")[0].text()
                         val photoh = SomeElement.getElementsByClass("event-list-item__image")[0]
@@ -87,7 +89,6 @@ class PagesParse() {
                             eventObject.setDate(str)
                             if( CheckWithFilters.check(eventObject))
                             {
-                                eventObject.setSector(0)
                                 list.add(eventObject)
                             }
                         }

@@ -20,6 +20,8 @@ public class ListOfEventsAdapter extends RecyclerView.Adapter<ListOfEventsAdapte
     private Context context;
     private ArrayList<EventObject> events;
     private Utils utils = new Utils();
+    private ArrayList<EventObject> dEvents = new ArrayList<>();
+    private ArrayList<EventObject> pEvents = new ArrayList<>();
 
     public ListOfEventsAdapter(Context context, ArrayList<EventObject> events) {
         this.context = context;
@@ -36,10 +38,24 @@ public class ListOfEventsAdapter extends RecyclerView.Adapter<ListOfEventsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull TestEventHolder holder, int position) {
-        if (position == 0) holder.title.setText("Программирование");
-        else holder.title.setText("Дизайн");
+        for (EventObject object : events){
+            if (utils.interestByNum(object.getSector(), 0).equals("программирование")){
+                pEvents.add(object);
+            }else{
+                dEvents.add(object);
+            }
+        }
         holder.nested.setLayoutManager(new LinearLayoutManager(context));
-        holder.nested.setAdapter(new NestedEventAdapter(context, events));
+        if (position == 0){
+            holder.title.setText("Программирование");
+            holder.nested.setAdapter(new NestedEventAdapter(context, pEvents));
+        }
+        else {
+            holder.title.setText("Дизайн");
+            holder.nested.setAdapter(new NestedEventAdapter(context, dEvents));
+        }
+
+
     }
 
     @Override
