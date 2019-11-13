@@ -1,158 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="600dp"
     android:padding="20dp">
 
-    <TextView
+    <!-- name 1-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Тип"
-        android:gravity="center"
-        android:textSize="15sp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_round_wifi"/>
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Прямая трансляция"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/mu2"
+            android:gravity="center"
+            android:text="Тип"
+            android:textSize="20dp">
 
+        </TextView>
+    </androidx.cardview.widget.CardView>
 
-        <com.sackcentury.shinebuttonlib.ShineButton
-            android:id="@+id/live_check_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="170dp"
-            android:background="@color/white"
-            app:srcCompat="@raw/heart"
-            app:btn_fill_color="@color/colorRed"
-            app:shine_count="4" />
-
-    </LinearLayout>
-
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        app:cardElevation="0dp"
+        android:id="@+id/card1"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        >
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_people"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="80dp"
+                android:fontFamily="@font/mu2"
+                android:gravity="start|center"
+                android:text="Прямая трансляция"
+                android:textSize="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Конференция"/>
+            </TextView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="35dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/colorRed_opacity"
+                android:layout_gravity="center|start"
+                android:layout_height="35dp"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_round_wifi"
+                    android:layout_height="match_parent">
 
-        <com.sackcentury.shinebuttonlib.ShineButton
-            android:id="@+id/people_check_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="170dp"
-            android:background="@color/white"
-            app:srcCompat="@raw/heart"
-            app:btn_fill_color="@color/colorRed"
-            app:shine_count="4" />
+                </ImageView>
+            </androidx.cardview.widget.CardView>
+            <com.varunest.sparkbutton.SparkButton
+                android:id="@+id/spark_button"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
 
-    </LinearLayout>
+                android:layout_gravity="center|end"
+                app:sparkbutton_activeImage="@drawable/ic_group"
+                app:sparkbutton_iconSize="25dp"
+                app:sparkbutton_inActiveImage="@drawable/ic_ellipse"
+                app:sparkbutton_primaryColor="@color/colorAccent"
+                app:sparkbutton_secondaryColor="@color/mainColor">
 
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+            </com.varunest.sparkbutton.SparkButton>
 
-    <TextView
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Тематика"
-        android:gravity="center"
+        app:cardElevation="0dp"
+        android:id="@+id/card2"
+        app:layout_constraintTop_toBottomOf="@+id/card1"
+        >
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#27000000"
+                >
+
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="80dp"
+                android:fontFamily="@font/mu2"
+                android:gravity="start|center"
+                android:text="Конференция"
+                android:textSize="16dp">
+
+            </TextView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="35dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/colorRed_opacity"
+                android:layout_gravity="center|start"
+                android:layout_height="35dp"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_baseline_people">
+
+                </ImageView>
+            </androidx.cardview.widget.CardView>
+            <com.varunest.sparkbutton.SparkButton
+                android:id="@+id/spark_button1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+
+                android:layout_gravity="center|end"
+                app:sparkbutton_activeImage="@drawable/ic_group"
+                app:sparkbutton_iconSize="25dp"
+                app:sparkbutton_inActiveImage="@drawable/ic_ellipse"
+                app:sparkbutton_primaryColor="@color/colorAccent"
+                app:sparkbutton_secondaryColor="@color/mainColor">
+
+            </com.varunest.sparkbutton.SparkButton>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- name 2-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/card2"
         android:layout_marginTop="30dp"
-        android:textSize="15sp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_code_icons"/>
+        tools:layout_editor_absoluteX="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Программирование"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/mu2"
+            android:gravity="center"
+            android:text="Тематика"
+            android:textSize="20dp">
 
-        <com.sackcentury.shinebuttonlib.ShineButton
-            android:id="@+id/code_check_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="170dp"
-            android:background="@color/white"
-            app:srcCompat="@raw/heart"
-            app:btn_fill_color="@color/colorRed"
-            app:shine_count="4" />
-
-    </LinearLayout>
-
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-
-    <LinearLayout
+        </TextView>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_brush"/>
+        app:cardElevation="0dp"
+        android:id="@+id/card3"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardView1"
+        >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Дизайн"/>
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="80dp"
+            android:fontFamily="@font/mu2"
+            android:gravity="start|center"
+            android:text="Программирование"
+            android:textSize="16dp">
 
-        <com.sackcentury.shinebuttonlib.ShineButton
-            android:id="@+id/brush_check_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="170dp"
-            android:background="@color/white"
-            app:srcCompat="@raw/heart"
-            app:btn_fill_color="@color/colorRed"
-            app:shine_count="4" />
+        </TextView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="35dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/colorRed_opacity"
+            android:layout_gravity="center|start"
+            android:layout_height="35dp"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:padding="7dp"
+                android:src="@drawable/ic_code_icons"
+                android:layout_height="match_parent">
 
-    </LinearLayout>
+            </ImageView>
+        </androidx.cardview.widget.CardView>
+        <com.varunest.sparkbutton.SparkButton
+            android:id="@+id/spark_button2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
 
-    <view
+            android:layout_gravity="center|end"
+            app:sparkbutton_activeImage="@drawable/ic_group"
+            app:sparkbutton_iconSize="25dp"
+            app:sparkbutton_inActiveImage="@drawable/ic_ellipse"
+            app:sparkbutton_primaryColor="@color/colorAccent"
+            app:sparkbutton_secondaryColor="@color/mainColor">
+
+        </com.varunest.sparkbutton.SparkButton>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="wrap_content"
+        app:cardElevation="0dp"
+        android:id="@+id/card4"
+        app:layout_constraintTop_toBottomOf="@+id/card3"
+        >
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#27000000"
+        >
 
+    </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="80dp"
+            android:fontFamily="@font/mu2"
+            android:gravity="start|center"
+            android:text="Дизайн"
+            android:textSize="16dp">
 
-</LinearLayout>
+        </TextView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="35dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/colorRed_opacity"
+            android:layout_gravity="center|start"
+            android:layout_height="35dp"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:padding="7dp"
+                android:src="@drawable/ic_brush"
+                android:layout_height="match_parent">
+
+            </ImageView>
+        </androidx.cardview.widget.CardView>
+        <com.varunest.sparkbutton.SparkButton
+            android:id="@+id/spark_button3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:layout_gravity="center|end"
+            app:sparkbutton_activeImage="@drawable/ic_group"
+            app:sparkbutton_iconSize="25dp"
+            app:sparkbutton_inActiveImage="@drawable/ic_ellipse"
+            app:sparkbutton_primaryColor="@color/colorAccent"
+            app:sparkbutton_secondaryColor="@color/mainColor">
+
+        </com.varunest.sparkbutton.SparkButton>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

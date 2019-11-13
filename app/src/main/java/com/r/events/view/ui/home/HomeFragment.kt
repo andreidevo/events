@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.r.events.R
+import com.r.events.view.FilterBottomSheetDialog
 
 
 class HomeFragment : Fragment(){
@@ -25,6 +27,11 @@ class HomeFragment : Fragment(){
         homeViewModel.setupRecyclerView(view.context, recyclerView)
 
         val filterBtn = view.findViewById<ImageView>(R.id.filter_btn)
+
+        //почему-то setupFilterBtn не работает
+        val dialog = FilterBottomSheetDialog()
+        dialog.show(fragmentManager, "adad")
+
         homeViewModel.setupFilterBtn(filterBtn, view.context, fragmentManager)
 
         return view

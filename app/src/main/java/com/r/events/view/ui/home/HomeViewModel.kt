@@ -32,7 +32,7 @@ class HomeViewModel : ViewModel(){
 
     fun setupFilterBtn(imageView: ImageView, context: Context, manager: FragmentManager?): Unit{
         imageView.setOnClickListener{
-            val dialog: FilterBottomSheetDialog = FilterBottomSheetDialog()
+            val dialog = FilterBottomSheetDialog()
             dialog.show(manager!!, "adad")
 
         }
