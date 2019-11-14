@@ -14,7 +14,7 @@ import kotlin.concurrent.thread
 var list : ArrayList<EventObject> = arrayListOf()
 var filters : Filters = Filters("all", arrayListOf(arrayListOf()), arrayListOf(),"all", false, arrayListOf() )
 
-class PagesParse() {
+class PagesParse {
 
     //это сделать глобальным потом
     var Utils  = Utils()
@@ -205,6 +205,8 @@ class PagesParse() {
         }
         opa.join()
     }
+
+
     fun getHash(eventObject: EventObject) : Long
     {
         val const = 49
