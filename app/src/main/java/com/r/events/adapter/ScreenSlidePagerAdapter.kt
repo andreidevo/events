@@ -9,11 +9,11 @@ class ScreenSlidePagerAdapter(
     fm:FragmentManager
 ) : FragmentStatePagerAdapter(fm){
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
         if (position >= 0 && position < fragmentList.size)
             return fragmentList[position]
 
-        return null
+        return Fragment()
     }
 
     override fun getCount(): Int = fragmentList.size

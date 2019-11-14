@@ -8,6 +8,8 @@
     <color name="colorOrange">#FFC108</color>
     <color name="colorBlue">#16C3D2</color>
     <color name="colorRed">#D92D41</color>
+    <color name="colorRed_opacity">#70D92D41</color>
+
     <color name="colorPurple">#778CF0</color>
     <color name="white">#FFF</color>
     <color name="blue_inactive">#5C8196</color>

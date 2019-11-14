@@ -12,7 +12,7 @@ import java.lang.Exception
 import java.net.HttpRetryException
 import kotlin.concurrent.thread
 var list : ArrayList<EventObject> = arrayListOf()
-var filters : Filters = Filters("all", arrayListOf(arrayListOf()), "all","all" )
+var filters : Filters = Filters("all", arrayListOf(arrayListOf()), arrayListOf(),"all", false, arrayListOf() )
 
 class PagesParse() {
 

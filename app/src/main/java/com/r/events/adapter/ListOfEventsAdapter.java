@@ -47,11 +47,11 @@ public class ListOfEventsAdapter extends RecyclerView.Adapter<ListOfEventsAdapte
         }
         holder.nested.setLayoutManager(new LinearLayoutManager(context));
         if (position == 0){
-            holder.title.setText("Программирование");
+            //holder.title.setText("Программирование");
             holder.nested.setAdapter(new NestedEventAdapter(context, pEvents));
         }
         else {
-            holder.title.setText("Дизайн");
+            //holder.title.setText("Дизайн");
             holder.nested.setAdapter(new NestedEventAdapter(context, dEvents));
         }
 
@@ -69,7 +69,7 @@ public class ListOfEventsAdapter extends RecyclerView.Adapter<ListOfEventsAdapte
 
         public TestEventHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.title_of_card);
+            //title = itemView.findViewById(R.id.title_of_card);
             nested = itemView.findViewById(R.id.nested);
         }
     }
