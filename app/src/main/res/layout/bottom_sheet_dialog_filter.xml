@@ -62,10 +62,10 @@
                 </ImageView>
             </androidx.cardview.widget.CardView>
             <com.varunest.sparkbutton.SparkButton
-                android:id="@+id/spark_button"
+                android:id="@+id/type_live"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-
+                android:contentDescription="no"
                 android:layout_gravity="center|end"
                 app:sparkbutton_activeImage="@drawable/ic_group"
                 app:sparkbutton_iconSize="25dp"
@@ -119,9 +119,11 @@
                 </ImageView>
             </androidx.cardview.widget.CardView>
             <com.varunest.sparkbutton.SparkButton
-                android:id="@+id/spark_button1"
+                android:id="@+id/type_conf"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:contentDescription="no"
+
 
                 android:layout_gravity="center|end"
                 app:sparkbutton_activeImage="@drawable/ic_group"
@@ -190,7 +192,7 @@
             </ImageView>
         </androidx.cardview.widget.CardView>
         <com.varunest.sparkbutton.SparkButton
-            android:id="@+id/spark_button2"
+            android:id="@+id/theme_programming"
             android:layout_width="60dp"
             android:layout_height="60dp"
 
@@ -215,8 +217,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="#27000000"
-        >
+        app:cardBackgroundColor="#27000000">
 
     </androidx.cardview.widget.CardView>
         <TextView
@@ -246,7 +247,7 @@
             </ImageView>
         </androidx.cardview.widget.CardView>
         <com.varunest.sparkbutton.SparkButton
-            android:id="@+id/spark_button3"
+            android:id="@+id/theme_design"
             android:layout_width="60dp"
             android:layout_height="60dp"
 

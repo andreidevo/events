@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.r.events.MainViewModel
 import com.r.events.adapter.ListOfEventsAdapter
+import com.r.events.model.Filters
+import com.r.events.model.filters
 import com.r.events.model.list
-import com.r.events.view.FilterBottomSheetDialog
+import com.r.events.view.FilterBottomSheet
 
 //ToDo сделать так, чтобы context не нужно было постоянно ложить в каждый метод
 class HomeViewModel : ViewModel(){
@@ -32,9 +34,12 @@ class HomeViewModel : ViewModel(){
 
     fun setupFilterBtn(imageView: ImageView, context: Context, manager: FragmentManager?): Unit{
         imageView.setOnClickListener{
-            val dialog = FilterBottomSheetDialog()
+            val dialog = FilterBottomSheet()
             dialog.show(manager!!, "adad")
 
         }
+    }
+    fun getFilters() : Filters{
+        return filters
     }
 }

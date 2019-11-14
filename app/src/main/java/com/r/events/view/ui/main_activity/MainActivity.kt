@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity() {
 
 
         //просто сделаем какие-то фильтры
-        filters.setDate(arrayListOf(arrayListOf(10,10,2019)))
-        filters.setOnline(false)
+        //filters.setDate(arrayListOf(arrayListOf(10,10,2019)))
+        //filters.setOnline(false)
 
     }
 }
