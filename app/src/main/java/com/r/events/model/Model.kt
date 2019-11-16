@@ -12,8 +12,16 @@ import android.widget.TextView
 import androidx.core.app.NotificationCompat
 import java.net.URL
 import android.app.NotificationChannel
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.Fragment
 import com.r.events.view.ui.main_activity.MainActivity
-
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.ArrayList
+import androidx.viewpager.widget.ViewPager
+import com.r.events.adapter.ScreenSlidePagerAdapter
+import java.lang.Exception
 
 
 class Model {
@@ -105,15 +113,28 @@ class Model {
             return false
         return true
     }
-    //функция парсинга сайтов
-     fun getDataFromPage()
-    {
-        //ссылкаемся на класс с парсингами
-        //val PagesParse = PagesParse(this)
-        //PagesParse.it_events()
-        //PagesParse.russian_hack()
-        //PagesParse.dexigner()
 
+    fun viewGroupMainActivity(list : ArrayList<Fragment>, view : androidx.viewpager.widget.ViewPager)
+    {
+        //val pagerAdapter = ScreenSlidePagerAdapter(list, supportFragmentManager)
+        //view.setAdapter(pagerAdapter)
     }
 
+    fun checkInternet(context: Context) : Boolean{
+
+        val  connectivityManager : ConnectivityManager =
+         context.getSystemService(Context.CONNECTIVITY_SERVICE) as (ConnectivityManager)
+        var  activeNetworkInfo : NetworkInfo?
+
+        var checkl = false
+        try {
+            activeNetworkInfo =  connectivityManager.getActiveNetworkInfo()
+            checkl = activeNetworkInfo != null
+            checkl = activeNetworkInfo.isConnected
+            return checkl
+        }catch (e : Exception){
+            return false
+        }
+
+    }
 }

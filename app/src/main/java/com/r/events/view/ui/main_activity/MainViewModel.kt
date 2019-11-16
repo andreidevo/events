@@ -2,9 +2,11 @@ package com.r.events
 
 import android.content.Context
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.r.events.model.Model
 import java.net.URL
+import java.util.ArrayList
 
 open class MainViewModel : ViewModel(){
     var Model: Model = Model()
@@ -21,8 +23,12 @@ open class MainViewModel : ViewModel(){
         Model.pushNotification(name, date, url)
     }
 
-    fun getDataFromPage()
+    fun viewGroupSetAdapter(list : ArrayList<Fragment>, view : androidx.viewpager.widget.ViewPager)
     {
-        Model.getDataFromPage()
+        Model.viewGroupMainActivity(list, view )
+    }
+    fun checkInternet(context: Context) : Boolean
+    {
+        return Model.checkInternet(context )
     }
 }

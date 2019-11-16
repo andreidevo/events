@@ -1,5 +1,6 @@
 package com.r.events.model
 
+import android.widget.Toast
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -106,13 +107,14 @@ class PagesParse {
                     } catch (e: Exception) { }
                 }
             } catch (e: IOException) { }
+
         }
         job.join()
     }
     suspend fun dexigner()
     {
 
-        var opa = GlobalScope.launch {
+        val opa = GlobalScope.launch {
             val doc: Document
             try {
                 doc = Jsoup.connect("https://www.dexigner.com/design-events").get()
@@ -202,8 +204,10 @@ class PagesParse {
                     }catch (e : Exception){}
                 }
                 }catch (e : Exception) {}
+
         }
         opa.join()
+
     }
 
 
