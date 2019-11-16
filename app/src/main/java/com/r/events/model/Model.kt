@@ -14,15 +14,11 @@ import java.net.URL
 import android.app.NotificationChannel
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.r.events.view.ui.main_activity.MainActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 import androidx.viewpager.widget.ViewPager
-import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener
-import com.google.android.material.navigation.NavigationView
 import com.r.events.adapter.ScreenSlidePagerAdapter
 import com.r.events.view.ui.Settings.SettingsFragment
 import com.r.events.view.ui.favourites.FavouritesFragment
@@ -148,7 +144,8 @@ class Model {
 
         val  connectivityManager : ConnectivityManager =
          context.getSystemService(Context.CONNECTIVITY_SERVICE) as (ConnectivityManager)
-        var  activeNetworkInfo : NetworkInfo?
+        val  activeNetworkInfo : NetworkInfo?
+
 
         var checkl = false
         try {

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Contacts
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
@@ -12,6 +13,7 @@ import com.r.events.MainViewModel
 import com.r.events.R
 import com.r.events.adapter.ScreenSlidePagerAdapter
 import com.r.events.model.PagesParse
+import com.r.events.model.ProgressLoad
 import com.r.events.model.filters
 import com.r.events.view.ui.Settings.SettingsFragment
 import com.r.events.view.ui.favourites.FavouritesFragment
@@ -24,29 +26,49 @@ import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) = runBlocking {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         val viewmodel = MainViewModel()
         if(viewmodel.checkInternet(this@MainActivity)) {
             //запускаем
-            GlobalScope.launch {
-                val page = PagesParse()
-                page.getDataFromPage()
 
-            }.join()//ждем пока выполнятся функции
+            val dialog : DialogFragment = ProgressLoad()
+
+            GlobalScope.async {
+
+                //открываем progressBar
+                runOnUiThread {
+                    dialog.show(supportFragmentManager.beginTransaction(), "dialog1")
+                }
+
+                //запускаем парсинг сайтов
+                val x = GlobalScope.async{
+                    val page =  PagesParse()
+                    page.getDataFromPage()
+                }
+
+                launch(Dispatchers.Main)
+                {
+                    x.await() //ждем обновления данных
+
+                    val fragList = ArrayList<Fragment>()
+                    viewmodel.setFragments(fragList)
+                    viewmodel.viewGroupSetAdapter(fragList, view_pager, supportFragmentManager, bottom_navigation_view_linear)
+
+                    bottom_navigation_view_linear.setNavigationChangeListener(BubbleNavigationChangeListener { view, position ->
+                        view_pager.setCurrentItem(position, true)
+                    })
 
 
-            val fragList = ArrayList<Fragment>()
-            viewmodel.setFragments(fragList)
-            viewmodel.viewGroupSetAdapter(fragList, view_pager, supportFragmentManager, bottom_navigation_view_linear)
-
-            bottom_navigation_view_linear.setNavigationChangeListener(BubbleNavigationChangeListener { view, position ->
-                view_pager.setCurrentItem(position, true
-                )
-            })
-
+                }
+            }
         }
         else
         {

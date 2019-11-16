@@ -18,8 +18,8 @@ class HomeFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?): View? {
+
         val homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val view = layoutInflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_home)
@@ -28,7 +28,7 @@ class HomeFragment : Fragment(){
 
         //почему-то setupFilterBtn не работает
         val dialog = FilterBottomSheet()
-        dialog.show(fragmentManager, "adad")
+        //dialog.show(activity?.supportFragmentManager!!.beginTransaction(), "adad")
         homeViewModel.setupFilterBtn(filterBtn, view.context, fragmentManager)
         return view
     }
