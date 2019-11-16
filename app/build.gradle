@@ -34,9 +34,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.google.android.material:material:1.0.0'
 
-
-
-
     //карточки
     implementation 'androidx.cardview:cardview:1.0.0'
 
