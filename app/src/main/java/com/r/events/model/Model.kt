@@ -16,11 +16,18 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.r.events.view.ui.main_activity.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 import androidx.viewpager.widget.ViewPager
+import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener
+import com.google.android.material.navigation.NavigationView
 import com.r.events.adapter.ScreenSlidePagerAdapter
+import com.r.events.view.ui.Settings.SettingsFragment
+import com.r.events.view.ui.favourites.FavouritesFragment
+import com.r.events.view.ui.home.HomeFragment
+import com.r.events.view.ui.user_info.UserInfoFragment
 import java.lang.Exception
 
 
@@ -114,10 +121,27 @@ class Model {
         return true
     }
 
-    fun viewGroupMainActivity(list : ArrayList<Fragment>, view : androidx.viewpager.widget.ViewPager)
+    fun viewGroupMainActivity(list : ArrayList<Fragment>,
+                              view : ViewPager,
+                              support : FragmentManager,
+                              bottom_navigation_view_linear : com.gauravk.bubblenavigation.BubbleNavigationLinearView)
     {
-        //val pagerAdapter = ScreenSlidePagerAdapter(list, supportFragmentManager)
-        //view.setAdapter(pagerAdapter)
+        val pagerAdapter = ScreenSlidePagerAdapter(list, support)
+        view.setAdapter(pagerAdapter)
+
+        view.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(i: Int, v: Float, i1: Int) {
+            }
+
+            override fun onPageSelected(i: Int) {
+                bottom_navigation_view_linear.setCurrentActiveItem(i)
+            }
+
+            override fun onPageScrollStateChanged(i: Int) {
+            }
+
+        })
+
     }
 
     fun checkInternet(context: Context) : Boolean{
@@ -136,5 +160,12 @@ class Model {
             return false
         }
 
+    }
+    fun setFragments(fragList : ArrayList<Fragment>)
+    {
+        fragList.add(HomeFragment())
+        fragList.add(FavouritesFragment())
+        fragList.add(SettingsFragment())
+        fragList.add(UserInfoFragment())
     }
 }

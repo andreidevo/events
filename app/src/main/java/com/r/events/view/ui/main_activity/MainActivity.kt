@@ -39,32 +39,11 @@ class MainActivity : AppCompatActivity() {
 
 
             val fragList = ArrayList<Fragment>()
-
-            fragList.add(HomeFragment())
-            fragList.add(FavouritesFragment())
-            fragList.add(SettingsFragment())
-            fragList.add(UserInfoFragment())
-
-            val pagerAdapter = ScreenSlidePagerAdapter(fragList, supportFragmentManager)
-            view_pager.setAdapter(pagerAdapter)
-
-            view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-                override fun onPageScrolled(i: Int, v: Float, i1: Int) {
-                }
-
-                override fun onPageSelected(i: Int) {
-                    bottom_navigation_view_linear.setCurrentActiveItem(i)
-                }
-
-                override fun onPageScrollStateChanged(i: Int) {
-                }
-
-            })
+            viewmodel.setFragments(fragList)
+            viewmodel.viewGroupSetAdapter(fragList, view_pager, supportFragmentManager, bottom_navigation_view_linear)
 
             bottom_navigation_view_linear.setNavigationChangeListener(BubbleNavigationChangeListener { view, position ->
-                view_pager.setCurrentItem(
-                    position,
-                    true
+                view_pager.setCurrentItem(position, true
                 )
             })
 
