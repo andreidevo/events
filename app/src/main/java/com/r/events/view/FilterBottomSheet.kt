@@ -44,6 +44,7 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
                     // Button is active
                     filters.setOnline(true)
                     type_live.isChecked = true
+                    //какая-то функция update всех данных
                 } else {
                     // Button is inactive
                     filters.setOnline(false)
@@ -85,7 +86,7 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
             }
             override fun onEvent(button: ImageView, buttonState: Boolean) {
                 if (buttonState) {
-                    type_conf.isChecked = true
+                    theme_programming.isChecked = true
 
                     if (!filters.getType().contains(0)) {
                         val list = filters.getSector()
@@ -100,7 +101,7 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
                         list.remove(0)
                         filters.setSector(list)
                     }
-                    type_conf.isChecked = false
+                    theme_programming.isChecked = false
 
                 }
             }
@@ -112,7 +113,7 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
             }
             override fun onEvent(button: ImageView, buttonState: Boolean) {
                 if (buttonState) {
-                    type_conf.isChecked = true
+                    theme_design.isChecked = true
 
                     if (!filters.getType().contains(1)) {
                         val list = filters.getSector()
@@ -127,7 +128,7 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
                         list.remove(1)
                         filters.setSector(list)
                     }
-                    type_conf.isChecked = false
+                    theme_design.isChecked = false
 
                 }
             }

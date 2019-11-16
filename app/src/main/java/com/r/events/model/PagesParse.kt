@@ -32,24 +32,17 @@ class PagesParse {
             doc = Jsoup.connect("https://it-events.com/").get()
             val div: Elements = doc.getElementsByClass("section")[0].getElementsByClass("event-list-item")
 
-            //пробегаемся по всем записям
             for(eventer in  0 until  div.size) {
                 try {
                     val SomeElement = div[eventer]
 
-                    //создаем объект мероприятия
                     val eventObject = EventObject()
-                    //заполняем его
 
-
-                    //тип мероприятия
                     eventObject.setType(SomeElement.getElementsByClass("event-list-item__type").text())
 
                     val Element: Element = SomeElement.getElementsByClass("event-list-item__title")[0]
                     val href = Element.attr("href")
-                    //имя мероприятия
                     eventObject.setName(Element.text())
-                    //ссылка на страницу с мероприятияем
                     eventObject.setHref(href)
                     eventObject.setSector(0)
 
@@ -60,15 +53,11 @@ class PagesParse {
                     val idx1 = 22
                     val idx2 = photoH.indexOf('.') + 4
 
-                    //ссылка на фото мероприятия
                     eventObject.setPhotoHref("https://it-events.com${photoH.substring(idx1, idx2)}")
-
-                    //местоположения мероприятия
                     try {
                         eventObject.setLocation(SomeElement.getElementsByClass("event-list-item__info_location").text())
                     }catch (e : Exception){}
 
-                    //онлайн траснляция или нет
                     try {
                         val check = SomeElement.getElementsByClass("event-list-item__info_online").text()
                         if( check != "")
@@ -79,7 +68,6 @@ class PagesParse {
 
                     val arr = dateStr.split(' ')
 
-                    //форматируем дату
                     if (dateStr.contains('-')) {
                         val dayMin = arr[0].toInt()
                         val month = Utils.convertMonth(arr[3])
@@ -102,6 +90,7 @@ class PagesParse {
 
                         //ToDo тут фильтр будет
                         list.add(eventObject)
+
                     }
                 } catch (e: Exception) { }
             }

@@ -18,10 +18,11 @@ class ProgressLoad : DialogFragment()
     ): View? {
 
         val view = inflater.inflate(R.layout.dialog_fragment, null)
-        val image = view.findViewById<ImageView>(R.id.imageGif)
-        //ставим гифку
+        getDialog().setCanceledOnTouchOutside(false)
+
         return view
     }
+
 
 
 }

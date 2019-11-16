@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 launch(Dispatchers.Main)
                 {
                     x.await() //ждем обновления данных
-
+                    dialog.dismiss()
                     val fragList = ArrayList<Fragment>()
                     viewmodel.setFragments(fragList)
                     viewmodel.viewGroupSetAdapter(fragList, view_pager, supportFragmentManager, bottom_navigation_view_linear)

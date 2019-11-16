@@ -14,4 +14,5 @@
     <color name="white">#FFF</color>
     <color name="blue_inactive">#5C8196</color>
     <color name="mainColor">#E03C3C</color>
+    <color name="transparent">#00000000</color>
 </resources>
