@@ -27,9 +27,11 @@ class HomeFragment : Fragment(){
         val filterBtn = view.findViewById<ImageView>(R.id.filter_btn)
 
         //почему-то setupFilterBtn не работает
-        val dialog = FilterBottomSheet()
-        dialog.show(fragmentManager, "adad")
-        homeViewModel.setupFilterBtn(filterBtn, view.context, fragmentManager)
+        filterBtn.setOnClickListener{
+            val dialog = FilterBottomSheet()
+            dialog.show(activity?.supportFragmentManager, "ada")
+        }
+
         return view
     }
 }

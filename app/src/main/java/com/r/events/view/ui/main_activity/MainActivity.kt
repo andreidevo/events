@@ -13,12 +13,14 @@ import com.r.events.R
 import com.r.events.adapter.ScreenSlidePagerAdapter
 import com.r.events.model.PagesParse
 import com.r.events.model.filters
+import com.r.events.view.FilterBottomSheet
 import com.r.events.view.ui.Settings.SettingsFragment
 import com.r.events.view.ui.favourites.FavouritesFragment
 import com.r.events.view.ui.home.HomeFragment
 import com.r.events.view.ui.home.HomeViewModel
 import com.r.events.view.ui.user_info.UserInfoFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.*
 import java.util.ArrayList
 
@@ -78,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         //просто сделаем какие-то фильтры
         //filters.setDate(arrayListOf(arrayListOf(10,10,2019)))
         //filters.setOnline(false)
+
 
     }
 }

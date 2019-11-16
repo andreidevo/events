@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.r.events.MainViewModel
-import com.r.events.adapter.ListOfEventsAdapter
+import com.r.events.adapter.EventAdapter
 import com.r.events.model.Filters
 import com.r.events.model.filters
 import com.r.events.model.list
@@ -21,7 +21,7 @@ import com.r.events.view.FilterBottomSheet
 class HomeViewModel : ViewModel(){
 
     fun setupRecyclerView(context: Context, recyclerView: RecyclerView){
-        val eventAdapter = ListOfEventsAdapter(context, list)
+        val eventAdapter = EventAdapter(context, list)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = eventAdapter
     }
@@ -32,13 +32,6 @@ class HomeViewModel : ViewModel(){
         mainViewModel.getContext(context)
     }
 
-    fun setupFilterBtn(imageView: ImageView, context: Context, manager: FragmentManager?): Unit{
-        imageView.setOnClickListener{
-            val dialog = FilterBottomSheet()
-            dialog.show(manager!!, "adad")
-
-        }
-    }
     fun getFilters() : Filters{
         return filters
     }
