@@ -12,9 +12,7 @@ import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener
 import com.r.events.MainViewModel
 import com.r.events.R
 import com.r.events.adapter.ScreenSlidePagerAdapter
-import com.r.events.model.PagesParse
-import com.r.events.model.ProgressLoad
-import com.r.events.model.filters
+import com.r.events.model.*
 import com.r.events.view.FilterBottomSheet
 import com.r.events.view.ui.Settings.SettingsFragment
 import com.r.events.view.ui.favourites.FavouritesFragment
@@ -42,34 +40,37 @@ class MainActivity : AppCompatActivity() {
             //запускаем
 
             val dialog : DialogFragment = ProgressLoad()
+            if(  parseChecker == false)
+            {
+                GlobalScope.async {
 
-            GlobalScope.async {
+                    //открываем progressBar
+                    runOnUiThread {
+                        dialog.show(supportFragmentManager.beginTransaction(), "dialog1")
+                    }
 
-                //открываем progressBar
-                runOnUiThread {
-                    dialog.show(supportFragmentManager.beginTransaction(), "dialog1")
+                    //запускаем парсинг сайтов
+                    val x = GlobalScope.async{
+                        val page =  PagesParse()
+                        page.getDataFromPage()
+                    }
+
+                    launch(Dispatchers.Main)
+                    {
+                        x.await() //ждем обновления данных
+                        parseChecker = true
+
+                        dialog.dismiss()
+                        val fragList = ArrayList<Fragment>()
+                        viewmodel.setFragments(fragList)
+                        viewmodel.viewGroupSetAdapter(fragList, view_pager, supportFragmentManager, bottom_navigation_view_linear)
+
+                        bottom_navigation_view_linear.setNavigationChangeListener(BubbleNavigationChangeListener { view, position ->
+                            view_pager.setCurrentItem(position, true)
+                        })
+                    }
                 }
-
-                //запускаем парсинг сайтов
-                val x = GlobalScope.async{
-                    val page =  PagesParse()
-                    page.getDataFromPage()
-                }
-
-                launch(Dispatchers.Main)
-                {
-                    x.await() //ждем обновления данных
-                    dialog.dismiss()
-                    val fragList = ArrayList<Fragment>()
-                    viewmodel.setFragments(fragList)
-                    viewmodel.viewGroupSetAdapter(fragList, view_pager, supportFragmentManager, bottom_navigation_view_linear)
-
-                    bottom_navigation_view_linear.setNavigationChangeListener(BubbleNavigationChangeListener { view, position ->
-                        view_pager.setCurrentItem(position, true)
-                    })
-
-
-                }
+                parseChecker = true
             }
         }
         else

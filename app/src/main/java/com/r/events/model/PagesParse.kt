@@ -12,19 +12,25 @@ import java.io.IOException
 import java.lang.Exception
 import java.net.HttpRetryException
 import kotlin.concurrent.thread
-var list : ArrayList<EventObject> = arrayListOf()
-var filters : Filters = Filters("all", arrayListOf(arrayListOf()), arrayListOf(),"all", false, arrayListOf() )
 
 class PagesParse {
 
+    
     //это сделать глобальным потом
     var Utils  = Utils()
     var CheckWithFilters = CheckWithFilters()
 
     suspend  fun getDataFromPage(){
         it_events()
+
         dexigner()
+        list = mergeSort(list)
+        val x = 5;
     }
+    //нужно сделать метод, который будет распределять даты по нормальному порядку
+
+
+
     suspend fun it_events()
     {
         val doc: Document
@@ -56,7 +62,10 @@ class PagesParse {
                     eventObject.setPhotoHref("https://it-events.com${photoH.substring(idx1, idx2)}")
                     try {
                         eventObject.setLocation(SomeElement.getElementsByClass("event-list-item__info_location").text())
-                    }catch (e : Exception){}
+                    }catch (e : Exception){
+
+                        val x = 5;
+                    }
 
                     try {
                         val check = SomeElement.getElementsByClass("event-list-item__info_online").text()
@@ -64,21 +73,36 @@ class PagesParse {
                             eventObject.setOnline(true)
                         else
                             eventObject.setOnline(false)
-                    }catch (e : Exception){ }
+                    }catch (e : Exception){
+
+                        val x = 5;
+
+
+                    }
 
                     val arr = dateStr.split(' ')
 
                     if (dateStr.contains('-')) {
-                        val dayMin = arr[0].toInt()
-                        val month = Utils.convertMonth(arr[3])
-                        val year = arr[4].toInt()
-
-                        val str = arrayListOf(arrayListOf(dayMin, month, year))
-                        eventObject.setDate(str)
-                        if( CheckWithFilters.check(eventObject))
+                        if(arr.size  == 7)
                         {
-                            list.add(eventObject)
+                            val dayMin = arr[0].toInt()
+                            val month = Utils.convertMonth(arr[1])
+                            val year = arr[2].toInt()
+
+                            val str = arrayListOf(arrayListOf(dayMin, month, year))
+                            eventObject.setDate(str)
                         }
+                        else
+                        {
+                            val dayMin = arr[0].toInt()
+                            val month = Utils.convertMonth(arr[3])
+                            val year = arr[4].toInt()
+
+                            val str = arrayListOf(arrayListOf(dayMin, month, year))
+                            eventObject.setDate(str)
+                        }
+
+                        list.add(eventObject)
                     }
                     else {
                         val days = arr[0].toInt()
@@ -92,7 +116,9 @@ class PagesParse {
                         list.add(eventObject)
 
                     }
-                } catch (e: Exception) { }
+                } catch (e: Exception) {
+                    val x = 5;
+                }
             }
         } catch (e: IOException) { }
 
@@ -201,6 +227,49 @@ class PagesParse {
         val photo = eventObject.getPhotoHref()
 
         return name.length * const + photo[photo.length-1].toLong() * const
+    }
+
+    fun mergeSort(list : ArrayList<EventObject>) : ArrayList<EventObject>
+    {
+        if( list.size <= 1)
+            return  list
+        else
+        {
+            val middle = list.size / 2
+            val left: List<EventObject> = list.subList(0, middle)
+            val right : List<EventObject> = list.subList(middle , list.size)
+            val ll = arrayListOf<EventObject>()
+            val rr = arrayListOf<EventObject>()
+            ll.addAll(left)
+            rr.addAll(right)
+            return merge(mergeSort(ll), mergeSort(rr))
+        }
+    }
+    fun merge(left: ArrayList<EventObject>, right: ArrayList<EventObject>): ArrayList<EventObject> {
+        var indexLeft = 0
+        var indexRight = 0
+        val newList : ArrayList<EventObject> = arrayListOf()
+        while (indexLeft < left.count() && indexRight < right.count()) {
+            var l = left[indexLeft].getDataCode()
+            var r = right[indexRight].getDataCode()
+
+            if ( l <= r) {
+                newList.add(left[indexLeft])
+                indexLeft++
+            } else {
+                newList.add(right[indexRight])
+                indexRight++
+            }
+        }
+        while (indexLeft < left.size) {
+            newList.add(left[indexLeft])
+            indexLeft++
+        }
+        while (indexRight < right.size) {
+            newList.add(right[indexRight])
+            indexRight++
+        }
+        return newList;
     }
 
 }

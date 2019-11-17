@@ -1,6 +1,9 @@
 package com.r.events.model
 
-val utils = Utils()
+import java.sql.Date
+import java.util.*
+import kotlin.collections.ArrayList
+
 class EventObject ( private var name : String?= null,
                     private var date : ArrayList<ArrayList<Int>>?= null,
                     private var type : String?= null,
@@ -138,6 +141,18 @@ class EventObject ( private var name : String?= null,
         }
 
         return ""
+    }
+    fun getDataCode() : Long
+    {
+        val result = this.date!![0]
+        val res = Date.valueOf("${result[2]}-${result[1] - 1}-${result[0]}")
+
+        return res.time
+        //17 0 2019  = 2036
+        //17 1 2019 = 2136
+        //17 11 2019 = 3136
+        //17 11 2018 = 3135
+        // 17 0 2000
     }
 
 }

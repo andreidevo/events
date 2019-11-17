@@ -33,7 +33,7 @@ class Utils {
         else if( mon == "окт" || mon == "oct")
             return 10
         else if( mon == "ноя" || mon == "nov")
-            return 1
+            return 11
         else if( mon == "дек" || mon == "dec")
             return 12
 
