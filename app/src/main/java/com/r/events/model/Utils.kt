@@ -6,9 +6,6 @@ import com.r.events.Database.EventObject
 
 class Utils {
 
-    //программирование
-    //дизайн
-    //рисование
     fun convertMonth(month : String) : Int
     {
         val mon = month.toLowerCase().substring(0,3)
