@@ -12,7 +12,10 @@ import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener
 import com.r.events.MainViewModel
 import com.r.events.R
 import com.r.events.adapter.ScreenSlidePagerAdapter
-import com.r.events.model.*
+import com.r.events.model.PagesParse
+import com.r.events.model.ProgressLoad
+import com.r.events.model.filters
+import com.r.events.model.parseChecker
 import com.r.events.view.FilterBottomSheet
 import com.r.events.view.ui.Settings.SettingsFragment
 import com.r.events.view.ui.favourites.FavouritesFragment
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             //запускаем
 
             val dialog : DialogFragment = ProgressLoad()
+
             if(  parseChecker == false)
             {
                 GlobalScope.async {
@@ -69,8 +73,9 @@ class MainActivity : AppCompatActivity() {
                             view_pager.setCurrentItem(position, true)
                         })
                     }
+
+                    parseChecker = true
                 }
-                parseChecker = true
             }
         }
         else

@@ -1,6 +1,8 @@
 package com.r.events.model
 
+import android.util.Log
 import android.widget.Toast
+import com.r.events.Database.EventObject
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -9,28 +11,24 @@ import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import java.io.IOException
+import java.sql.Date
 import java.lang.Exception
 import java.net.HttpRetryException
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
 class PagesParse {
 
-    
     //это сделать глобальным потом
     var Utils  = Utils()
     var CheckWithFilters = CheckWithFilters()
 
     suspend  fun getDataFromPage(){
         it_events()
-
         dexigner()
-//        list = mergeSort(list)
-        val x = 5;
+        //list = mergeSort(list)
     }
-    //нужно сделать метод, который будет распределять даты по нормальному порядку
-
-
-
     suspend fun it_events()
     {
         val doc: Document
@@ -44,13 +42,13 @@ class PagesParse {
 
                     val eventObject = EventObject()
 
-                    eventObject.setType(SomeElement.getElementsByClass("event-list-item__type").text())
+                    eventObject.type = SomeElement.getElementsByClass("event-list-item__type").text()
 
                     val Element: Element = SomeElement.getElementsByClass("event-list-item__title")[0]
                     val href = Element.attr("href")
-                    eventObject.setName(Element.text())
-                    eventObject.setHref(href)
-                    eventObject.setSector(0)
+                    eventObject.name = Element.text()
+                    eventObject.href = href
+                    eventObject.sector = "0"
 
 
                     val dateStr = SomeElement.getElementsByClass("event-list-item__info")[0].text()
@@ -59,26 +57,18 @@ class PagesParse {
                     val idx1 = 22
                     val idx2 = photoH.indexOf('.') + 4
 
-                    eventObject.setPhotoHref("https://it-events.com${photoH.substring(idx1, idx2)}")
+                    eventObject.photoHref = "https://it-events.com${photoH.substring(idx1, idx2)}"
                     try {
-                        eventObject.setLocation(SomeElement.getElementsByClass("event-list-item__info_location").text())
-                    }catch (e : Exception){
-
-                        val x = 5;
-                    }
+                        eventObject.location = SomeElement.getElementsByClass("event-list-item__info_location").text()
+                    }catch (e : Exception){ }
 
                     try {
                         val check = SomeElement.getElementsByClass("event-list-item__info_online").text()
                         if( check != "")
-                            eventObject.setOnline(true)
+                            eventObject.online = true
                         else
-                            eventObject.setOnline(false)
-                    }catch (e : Exception){
-
-                        val x = 5;
-
-
-                    }
+                            eventObject.online = false
+                    }catch (e : Exception){ }
 
                     val arr = dateStr.split(' ')
 
@@ -89,17 +79,21 @@ class PagesParse {
                             val month = Utils.convertMonth(arr[1])
                             val year = arr[2].toInt()
 
-                            val str = arrayListOf(arrayListOf(dayMin, month, year))
-                            eventObject.setDate(str)
+                            var arrayStr = arrayListOf(arrayListOf(dayMin, month, year))
+                            eventObject.date = getDataNormal(0, 1, arrayStr)
+                            //if( CheckWithFilters.check(eventObject))
+                            arrayStr = arrayListOf(arrayListOf(dayMin, month, year))
+                            eventObject.date = getDataNormal(0, 1, arrayStr)
                         }
                         else
                         {
+                            list.add(eventObject)
                             val dayMin = arr[0].toInt()
                             val month = Utils.convertMonth(arr[3])
                             val year = arr[4].toInt()
 
                             val str = arrayListOf(arrayListOf(dayMin, month, year))
-                            eventObject.setDate(str)
+                            eventObject.date = getDataNormal(0, 1, str)
                         }
 
                         list.add(eventObject)
@@ -110,15 +104,13 @@ class PagesParse {
                         val year = arr[2].toInt()
 
                         val str = arrayListOf(arrayListOf(days, month, year))
-                        eventObject.setDate(str)
+                        eventObject.date = getDataNormal(0, 1, str)
 
                         //ToDo тут фильтр будет
                         list.add(eventObject)
 
                     }
-                } catch (e: Exception) {
-                    val x = 5;
-                }
+                } catch (e: Exception) { }
             }
         } catch (e: IOException) { }
 
@@ -136,12 +128,12 @@ class PagesParse {
             {
                 val eventObject = EventObject()
                 try{
-                    eventObject.setDescription(elements[SomeElement].getElementsByTag("p")[0].text())
-                    eventObject.setName(elements[SomeElement].getElementsByTag("h3")[0].text())
-                    eventObject.setPhotoHref( "https://www.dexigner.com${ elements[SomeElement].getElementsByTag("img")[0].attr("data-src")}")
-                    eventObject.setHref("https://www.dexigner.com${elements[SomeElement].getElementsByTag("a").attr("href")}")
-                    eventObject.setLocation( elements[SomeElement].getElementsByClass("location").text())
-                    eventObject.setSector(1)
+                    eventObject.description = elements[SomeElement].getElementsByTag("p")[0].text()
+                    eventObject.name = elements[SomeElement].getElementsByTag("h3")[0].text()
+                    eventObject.photoHref =  "https://www.dexigner.com${ elements[SomeElement].getElementsByTag("img")[0].attr("data-src")}"
+                    eventObject.href = "https://www.dexigner.com${elements[SomeElement].getElementsByTag("a").attr("href")}"
+                    eventObject.location = elements[SomeElement].getElementsByClass("location").text()
+                    eventObject.sector = "1"
                     val date = elements[SomeElement].getElementsByTag("time").text()
 
                     //Nov 20 - Nov 22, 2019
@@ -167,7 +159,7 @@ class PagesParse {
                                 year++
                             }
 
-                            eventObject.setDate(arrayListOf(FirstArr, arrayListOf(day, month2, year)))
+                            eventObject.date = getDataNormal(0, 1, arrayListOf(FirstArr, arrayListOf(day, month2, year)))
                         }
                         else if( arr[5].contains("days"))
                         {
@@ -181,7 +173,7 @@ class PagesParse {
                                     year++
                                 }
                             }
-                            eventObject.setDate(arrayListOf(FirstArr, arrayListOf(day2, month, year)))
+                            eventObject.date = getDataNormal(0, 1, arrayListOf(FirstArr, arrayListOf(day2, month, year)))
                         }
 
                     }
@@ -197,7 +189,7 @@ class PagesParse {
                         val sDay = sDate[1].toInt()
                         val fMonth = Utils.convertMonth(fDate[0])
                         val sMonth = Utils.convertMonth(sDate[0])
-                        eventObject.setDate(arrayListOf(arrayListOf(fDay, fMonth, year), arrayListOf(sDay, sMonth, year)))
+                        eventObject.date = getDataNormal(0, 1, arrayListOf(arrayListOf(fDay, fMonth, year), arrayListOf(sDay, sMonth, year)))
                     }
                     else
                     {
@@ -207,7 +199,7 @@ class PagesParse {
                         val dat = arr[0].split(' ')
                         val month = Utils.convertMonth(dat[0])
                         val day = dat[1].toInt()
-                        eventObject.setDate(arrayListOf(arrayListOf(day, month, year)))
+                        eventObject.date = getDataNormal(0, 1, arrayListOf(arrayListOf(day, month, year)))
                     }
 
 
@@ -219,14 +211,62 @@ class PagesParse {
 
     }
 
+    fun getDataNormal(len: Int, format: Int, data : ArrayList<ArrayList<Int>>): String {
+        val RUS: Int = 0
+        val ENG: Int = 1
 
-    fun getHash(eventObject: EventObject) : Long
-    {
-        val const = 49
-        val name = eventObject.getName()
-        val photo = eventObject.getPhotoHref()
+        val NUM_FORMAT: Int = 0 // 1-15-2019
+        val TEXT_FORMAN: Int = 1 // 1 Nov 2019
+        if (len == RUS) {
+            if (data.size == 2) {
+                //значит промежуток
+                if (format == NUM_FORMAT)
+                    return "от ${data[0][0]}-${data[0][1]}-${data[0][2]} до ${data[1][0]}-${data[1][1]}-${data[1][2]}"
+                else if (format == TEXT_FORMAN) {
+                    val firstMonth = Utils.convertNumToMonth(data[0][1], len)
+                    val secMonth = Utils.convertNumToMonth(data[1][1], len)
+                    val string = "от ${data[0][0]} ${firstMonth} ${data[0][2]} до ${data[1][0]} ${secMonth} ${data[1][2]}"
+                    Log.d("TAG", string)
+                    return string
+                }
+            }
+            else {
+                if (format == NUM_FORMAT)
+                    return "${data[0][0]}-${data[0][1]}-${data[0][2]}"
+                else if (format == TEXT_FORMAN) {
+                    val FirstMonth = Utils.convertNumToMonth(data[0][1], len)
+                    val string = "${data[0][0]} ${FirstMonth} ${data[0][2]}"
+                    Log.d("TAG", string)
+                    return string
+                }
+            }
+        }
+        else if (len == ENG) {
+            if (data.size == 2) {
+                //значит промежуток
+                if (format == NUM_FORMAT)
+                    return "${data[0][0]}-${data[0][1]}-${data[0][2]} for ${data[1][0]}-${data[1][1]}-${data[1][2]}"
+                else if (format == TEXT_FORMAN) {
+                    val firstMonth = Utils.convertNumToMonth(data[0][1], len)
+                    val secMonth = Utils.convertNumToMonth(data[1][1], len)
+                    val string = "${data[0][0]} ${firstMonth} ${data[0][2]} for ${data[1][0]} ${secMonth} ${data[1][2]}"
+                    return string
+                }
+                else
+                    return ""
+            }
+            else {
+                if (format == NUM_FORMAT)
+                    return "${data[0][0]}-${data[0][1]}-${data[0][2]}"
+                else if (format == TEXT_FORMAN) {
+                    val FirstMonth = Utils.convertNumToMonth(data[0][1], len) //ToDo тут заменить на английский перевод
+                    val string = "${data[0][0]} ${FirstMonth} ${data[0][2]}"
+                    return string
+                }
+            }
+        }
 
-        return name.length * const + photo[photo.length-1].toLong() * const
+        return ""
     }
 
     fun mergeSort(list : ArrayList<EventObject>) : ArrayList<EventObject>
@@ -250,8 +290,8 @@ class PagesParse {
         var indexRight = 0
         val newList : ArrayList<EventObject> = arrayListOf()
         while (indexLeft < left.count() && indexRight < right.count()) {
-            var l = left[indexLeft].getDataCode()
-            var r = right[indexRight].getDataCode()
+            var l = getDataCode(getArrayFromString(left[indexLeft].date!!))
+            var r = getDataCode(getArrayFromString(right[indexRight].date!!))
 
             if ( l <= r) {
                 newList.add(left[indexLeft])
@@ -272,4 +312,29 @@ class PagesParse {
         return newList;
     }
 
+    //ToDO не уверен насчет правильности
+    fun getArrayFromString(str : String) : ArrayList<ArrayList<Int>> {
+        val arr = str.split(' ')
+
+        val year = arr[2].toInt()
+        val month = utils.convertMonth(arr[1])
+        val day = arr[0].toInt()
+
+        var array : ArrayList<ArrayList<Int>> = arrayListOf(arrayListOf(day, month, year))
+
+        return array
+    }
+
+    fun getDataCode(list : ArrayList<ArrayList<Int>>?) : Long
+    {
+        val result = list!![0]
+        val res = Date.valueOf("${result[2]}-${result[1] - 1}-${result[0]}")
+
+        return res.time
+        //17 0 2019  = 2036
+        //17 1 2019 = 2136
+        //17 11 2019 = 3136
+        //17 11 2018 = 3135
+        // 17 0 2000
+    }
 }

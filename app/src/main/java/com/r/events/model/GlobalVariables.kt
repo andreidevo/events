@@ -1,5 +1,6 @@
 package com.r.events.model
 
+import com.r.events.Database.EventObject
 
 val utils = Utils()
 var list : ArrayList<EventObject> = arrayListOf()

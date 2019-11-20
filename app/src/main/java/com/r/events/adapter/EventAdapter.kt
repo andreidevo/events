@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 import com.r.events.R
-import com.r.events.model.EventObject
-import com.r.events.model.list
+import com.r.events.Database.EventObject
 
 import java.util.ArrayList
 
@@ -30,9 +29,9 @@ class EventAdapter(private val context: Context, private val events: ArrayList<E
     override fun onBindViewHolder(holder: EventHolder, position: Int) {
         val eventObject = events[position]
 
-        holder.eventDate.text = eventObject.getDataNormal(eventObject.RUS, eventObject.TEXT_FORMAN) // ToDo исправить на правильную дату
-        Glide.with(context).load(eventObject.getPhotoHref()).into(holder.eventImage)
-        holder.eventTitle.text = eventObject.getName()
+        holder.eventDate.text = eventObject.date
+        Glide.with(context).load(eventObject.photoHref).into(holder.eventImage)
+        holder.eventTitle.text = eventObject.name
     }
 
     override fun getItemCount(): Int {

@@ -2,6 +2,7 @@ package com.r.events.model
 
 import android.content.Context
 import android.widget.ImageView
+import com.r.events.Database.EventObject
 
 class Utils {
 
@@ -130,4 +131,6 @@ class Utils {
             return false
         return true
     }
+
+
 }

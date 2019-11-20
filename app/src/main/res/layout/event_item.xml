@@ -68,13 +68,15 @@
             android:padding="6dp"
             android:layout_height="30dp" >
         </ImageView>
-        <ImageView
+        <ImageButton
             android:src="@drawable/ic_star"
+            android:background="@color/white"
             android:padding="5dp"
             android:layout_marginTop="7dp"
             android:layout_width="30dp"
-            android:layout_height="30dp">
+            android:layout_height="30dp"
+            android:id="@+id/item_image_button">
 
-        </ImageView>
+        </ImageButton>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

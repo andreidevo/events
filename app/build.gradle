@@ -63,6 +63,10 @@ dependencies {
 
     implementation 'com.github.varunest:sparkbutton:1.0.6'
 
+    //Хранение данныx
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
+
     //gif
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
 
