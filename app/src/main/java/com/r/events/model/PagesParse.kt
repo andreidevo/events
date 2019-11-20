@@ -24,7 +24,7 @@ class PagesParse {
         it_events()
 
         dexigner()
-        list = mergeSort(list)
+//        list = mergeSort(list)
         val x = 5;
     }
     //нужно сделать метод, который будет распределять даты по нормальному порядку
