@@ -15,6 +15,7 @@ data class EventObject (
     @ColumnInfo(name = "event_date")
     var date : String? = null,
 
+
     @ColumnInfo(name = "event_type")
     var type : String? = null,
 
@@ -37,5 +38,12 @@ data class EventObject (
     var description : String? = null,
 
     @ColumnInfo(name = "event_favourite")
-    var favourite : Boolean = false
-)
+    var favourite : Boolean = false)
+
+{
+
+}
+
+
+
+
