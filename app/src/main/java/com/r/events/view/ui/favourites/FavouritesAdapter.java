@@ -71,10 +71,6 @@ public class FavouritesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         switch (viewType) {
             case ListItem.TYPE_HEADER: {
-                HeaderItem header = (HeaderItem) ev.get(position);
-                HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
-
-                holder.txt_header.setText(header.getSector());
                 break;
             }
             case ListItem.TYPE_EVENT: {

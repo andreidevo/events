@@ -71,10 +71,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         switch (viewType) {
             case ListItem.TYPE_HEADER: {
-                HeaderItem header = (HeaderItem) ev.get(position);
-                HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
-
-                holder.txt_header.setText(header.getSector());
                 break;
             }
             case ListItem.TYPE_EVENT: {
