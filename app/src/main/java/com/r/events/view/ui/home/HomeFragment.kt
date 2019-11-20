@@ -105,8 +105,6 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener{
         val eventList = ArrayList<ListItem>()
 
         map.forEach { (key, value) ->
-            val header = HeaderItem(key)
-            eventList.add(header)
             for(event in value) {
                 val eventObj = EventItem(event)
                 eventList.add(eventObj)
