@@ -24,10 +24,11 @@ class PagesParse {
     var Utils  = Utils()
     var CheckWithFilters = CheckWithFilters()
 
+    //fun selector(p: EventObject): Long = getDataCode(p.dataList)
     suspend  fun getDataFromPage(){
         it_events()
         dexigner()
-        //list = mergeSort(list)
+        //list.sortBy { selector(it)}
     }
     suspend fun it_events()
     {
@@ -84,6 +85,7 @@ class PagesParse {
                             //if( CheckWithFilters.check(eventObject))
                             arrayStr = arrayListOf(arrayListOf(dayMin, month, year))
                             eventObject.date = getDataNormal(0, 1, arrayStr)
+                            //eventObject.dataList = arrayListOf(arrayListOf(dayMin, month, year))
                         }
                         else
                         {
@@ -94,6 +96,7 @@ class PagesParse {
 
                             val str = arrayListOf(arrayListOf(dayMin, month, year))
                             eventObject.date = getDataNormal(0, 1, str)
+                            //eventObject.dataList = arrayListOf(arrayListOf(dayMin, month, year))
                         }
 
                         list.add(eventObject)
@@ -105,7 +108,7 @@ class PagesParse {
 
                         val str = arrayListOf(arrayListOf(days, month, year))
                         eventObject.date = getDataNormal(0, 1, str)
-
+                        //eventObject.dataList = arrayListOf(arrayListOf(days, month, year))
                         //ToDo тут фильтр будет
                         list.add(eventObject)
 
@@ -190,6 +193,7 @@ class PagesParse {
                         val fMonth = Utils.convertMonth(fDate[0])
                         val sMonth = Utils.convertMonth(sDate[0])
                         eventObject.date = getDataNormal(0, 1, arrayListOf(arrayListOf(fDay, fMonth, year), arrayListOf(sDay, sMonth, year)))
+                       // eventObject.dataList = arrayListOf(arrayListOf(fDay, fMonth, year), arrayListOf(sDay, sMonth, year))
                     }
                     else
                     {
@@ -200,6 +204,7 @@ class PagesParse {
                         val month = Utils.convertMonth(dat[0])
                         val day = dat[1].toInt()
                         eventObject.date = getDataNormal(0, 1, arrayListOf(arrayListOf(day, month, year)))
+                        //eventObject.dataList = arrayListOf(arrayListOf(day, month, year))
                     }
 
 
@@ -207,8 +212,44 @@ class PagesParse {
                 }catch (e : Exception){}
             }
             }catch (e : Exception) {}
+    }
+    suspend fun hacktons()
+    {
+        //http://www.xn--80aa3anexr8c.xn--p1ai/
+        val doc: Document
+        try {
+            doc = Jsoup.connect("http://www.xn--80aa3anexr8c.xn--p1ai/").get()
+            val di: Element = doc.getElementsByClass("t776__container_mobile-grid")[1]
+            val div : Elements = di.getElementsByClass("t776__col")
+
+            for(eventer in  0 until  div.size) {
+                try {
+                    val SomeElement = div[eventer]
+
+                    val eventObject = EventObject()
+                    //teg a - href
+                    //t776__title - titile
+                    //t776__desrc - descr -> strong - date
+                    //t776__imgwrapper - photoHref
 
 
+                    //10 октября - 25 ноября, Онлайн Призовой фонд и призы. Призовой фонд и призы. Призовой фонд и призы.
+                    eventObject.href =  (SomeElement.getElementsByTag("a")[0].attr("href"))
+                    eventObject.name =  (SomeElement.getElementsByClass("t-name")[0].text())
+                    val op = SomeElement.getElementsByClass("t-descr")[0].getElementsByTag("strong").text()
+                    val p = op.substring(0, op.indexOf(',') + 1)
+                    //parse !!!!!!
+                    //eventObject.(arrayListOf(arrayListOf(0,1,2019)))
+                    eventObject.photoHref= (SomeElement.getElementsByClass("t-img")[0].attr("src").replace("-/empty/", ""))
+
+                    val x = 5;
+
+                    list.add(eventObject)
+                } catch (e: Exception) {
+                    val x = 5;
+                }
+            }
+        } catch (e: IOException) { }
     }
 
     fun getDataNormal(len: Int, format: Int, data : ArrayList<ArrayList<Int>>): String {
