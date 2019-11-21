@@ -19,7 +19,6 @@ import com.r.events.Database.EventDatabase
 import com.r.events.Database.EventObject
 import com.r.events.R
 import com.r.events.model.ClassesForRecyclerView.EventItem
-import com.r.events.model.ClassesForRecyclerView.HeaderItem
 import com.r.events.model.ClassesForRecyclerView.ListItem
 import com.r.events.model.list
 import com.r.events.view.FilterBottomSheet

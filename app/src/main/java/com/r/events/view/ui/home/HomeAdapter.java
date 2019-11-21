@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.r.events.Database.EventObject;
 import com.r.events.R;
 import com.r.events.model.ClassesForRecyclerView.EventItem;
-import com.r.events.model.ClassesForRecyclerView.HeaderItem;
 import com.r.events.model.ClassesForRecyclerView.ListItem;
 
 import java.util.List;
