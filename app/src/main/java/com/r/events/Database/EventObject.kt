@@ -19,7 +19,7 @@ class EventObject {
     var name: String? = null
 
     @ColumnInfo(name = "event_date")
-    var date: MutableList<Day>? = null
+    var date: ArrayList<Day>? = null
 
     @ColumnInfo(name = "event_type")
     var type: String? = null
@@ -171,23 +171,23 @@ class Converters {
     }
 
     @TypeConverter
-    fun stringToList(value: String): MutableList<Day>? {
+    fun stringToList(value: String): ArrayList<Day>? {
 
         lateinit var list : MutableList<Day>
 
         if(value.contains('-')) {
             //ToDo Доделать для промежутков
-            list = mutableListOf(Day(1, 1, 1), Day(1, 1, 1))
+            list = arrayListOf(Day(1, 1, 1), Day(1, 1, 1))
         } else {
             if(value.split(' ').size < 3) {
-                list = mutableListOf(Day(1, 1, 1))
+                list = arrayListOf(Day(1, 1, 1))
                 return list
             }
             val day = value.split(' ')[0].toInt()
             val month = utils.convertMonth(value.split(' ')[1])
             val year = value.split(' ')[2].toInt()
             //Log.d("TAG1", value.split(' ')[0] + value.split(' ')[1] + value.split(' ')[2])
-            list = mutableListOf(Day(day, month, year))
+            list = arrayListOf(Day(day, month, year))
         }
 
         return list

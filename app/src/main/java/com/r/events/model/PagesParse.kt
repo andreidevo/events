@@ -24,11 +24,11 @@ class PagesParse {
     var Utils  = Utils()
     var CheckWithFilters = CheckWithFilters()
 
-    //fun selector(p: EventObject): Long = getDataCode(p.dataList)
+    fun selector(p: EventObject): Long = getDataCode(p.date)
     suspend  fun getDataFromPage(){
         it_events()
         dexigner()
-        //list.sortBy { selector(it)}
+        //list.sortBy { selector(it).compareTo(selector(it+1))}
     }
     suspend fun it_events()
     {
@@ -69,6 +69,7 @@ class PagesParse {
                             eventObject.online = true
                         else
                             eventObject.online = false
+
                     }catch (e : Exception){ }
 
                     val arr = dateStr.split(' ')
@@ -80,7 +81,7 @@ class PagesParse {
                             val month = Utils.convertMonth(arr[1])
                             val year = arr[2].toInt()
 
-                            eventObject.date = mutableListOf(Day(dayMin, month, year))
+                            eventObject.date = arrayListOf(Day(dayMin, month, year))
                             //if( CheckWithFilters.check(eventObject))
                             //arrayStr = mutableListOf(Day(year, month, dayMin))
                             //eventObject.date = arrayStr
@@ -92,7 +93,7 @@ class PagesParse {
                             val month = Utils.convertMonth(arr[3])
                             val year = arr[4].toInt()
 
-                            eventObject.date = mutableListOf(Day(dayMin, month, year))
+                            eventObject.date = arrayListOf(Day(dayMin, month, year))
                         }
 
                         list.add(eventObject)
@@ -102,7 +103,7 @@ class PagesParse {
                         val month = Utils.convertMonth(arr[1])
                         val year = arr[2].toInt()
 
-                        eventObject.date = mutableListOf(Day(days, month, year))
+                        eventObject.date = arrayListOf(Day(days, month, year))
 
                         //ToDo тут фильтр будет
                         list.add(eventObject)
@@ -157,7 +158,7 @@ class PagesParse {
                                 year++
                             }
 
-                            eventObject.date = mutableListOf(FirstArr, Day(day, month2, year))
+                            eventObject.date = arrayListOf(FirstArr, Day(day, month2, year))
                         }
                         else if( arr[5].contains("days"))
                         {
@@ -171,7 +172,7 @@ class PagesParse {
                                     year++
                                 }
                             }
-                            eventObject.date = mutableListOf(FirstArr, Day(day2, month2, year))
+                            eventObject.date = arrayListOf(FirstArr, Day(day2, month2, year))
                         }
 
                     }
@@ -187,7 +188,7 @@ class PagesParse {
                         val sDay = sDate[1].toInt()
                         val fMonth = Utils.convertMonth(fDate[0])
                         val sMonth = Utils.convertMonth(sDate[0])
-                        eventObject.date = mutableListOf(Day(fDay, fMonth, year), Day(sDay, sMonth, year))
+                        eventObject.date = arrayListOf(Day(fDay, fMonth, year), Day(sDay, sMonth, year))
                     }
                     else
                     {
@@ -197,7 +198,7 @@ class PagesParse {
                         val dat = arr[0].split(' ')
                         val month = Utils.convertMonth(dat[0])
                         val day = dat[1].toInt()
-                        eventObject.date = mutableListOf(Day(day, month, year))
+                        eventObject.date = arrayListOf(Day(day, month, year))
                     }
 
 
@@ -362,10 +363,10 @@ class PagesParse {
         return array
     }
 */
-    fun getDataCode(list : ArrayList<ArrayList<Int>>?) : Long
+    fun getDataCode(list : ArrayList<Day>?) : Long
     {
-        val result = list!![0]
-        val res = Date.valueOf("${result[2]}-${result[1] - 1}-${result[0]}")
+        val result = list!!
+        val res = Date.valueOf("${result[2]}-${result[1]}-${result[0]}")
 
         return res.time
         //17 0 2019  = 2036
