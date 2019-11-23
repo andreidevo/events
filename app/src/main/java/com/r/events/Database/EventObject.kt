@@ -82,8 +82,6 @@ class Converters {
         return value.getSimpleDate(0,0)
     }
 
-
-
     fun parseStringToDay(string : String) : Day
     {
         lateinit var Day : Day
