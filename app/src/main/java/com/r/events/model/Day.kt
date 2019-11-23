@@ -9,9 +9,10 @@ package com.r.events.model
     .getSFirstDay() - Возвращает строковой формат первой строки
 
 */
-class Day(val day : Int, val month : Int, val year: Int)
+class Day(val day : Int? = null, val month : Int? = null, val year: Int? = null)
 {
     private var secondDay : Day? = null
+
     fun addInterval(day : Int, month : Int, year: Int)
     {
         this.secondDay = Day(day, month, year)
@@ -40,24 +41,37 @@ class Day(val day : Int, val month : Int, val year: Int)
         0 - 15 Янв 2019
         1 - 15-01-2019
     */
-    fun getSFirstDay(type : Int) : String
+    fun getSFirstDay(type : Int, len : Int) : String
     {
-        if(type == 0)
-            return "$day ${utils.convertNumToMonth(month, utils.RUS)} $year"
-        else if( type == 1)
-            return "$day-$month-$year"
-        else
-            return "null"
+            if(type == 0)
+                return "$day ${utils.convertNumToMonth((month!!), len)} $year"
+            else if( type == 1)
+                return "$day-$month-$year"
+            else
+                return "null"
+
     }
-    fun getSSecondDay(type : Int) : String
+    fun getSSecondDay(type : Int, len : Int) : String
     {
         if(type == 0)
-            return "${secondDay?.day} ${utils.convertNumToMonth(secondDay!!.month, utils.RUS)} ${secondDay?.year}"
+            return "${secondDay?.day} ${utils.convertNumToMonth(secondDay!!.month!!, len)} ${secondDay?.year}"
         else if( type == 1)
             return "${secondDay?.day}-${secondDay?.month}-${secondDay?.year}"
         else
             return "null"
     }
+    /*
+        Простой метод для использования, чтобы получить нормальную строковую дату
+        Отличие от другие - не надо проверять на наличие промежутка
+    */
+    fun getSimpleDate(type : Int, len : Int) : String
+    {
+        if( secondDay == null)
+            return getSFirstDay(type, len)
+        else
+            return getSFirstDay(type, len) + " - " + getSSecondDay(type, len)
+    }
+
 
 }
 
