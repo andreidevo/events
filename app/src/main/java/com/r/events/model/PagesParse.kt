@@ -80,12 +80,10 @@ class PagesParse {
                             val month = Utils.convertMonth(arr[1])
                             val year = arr[2].toInt()
 
-                            var arrayStr = arrayListOf(arrayListOf(dayMin, month, year))
-                            eventObject.date = getDataNormal(0, 1, arrayStr)
+                            eventObject.date = mutableListOf(Day(dayMin, month, year))
                             //if( CheckWithFilters.check(eventObject))
-                            arrayStr = arrayListOf(arrayListOf(dayMin, month, year))
-                            eventObject.date = getDataNormal(0, 1, arrayStr)
-                            //eventObject.dataList = arrayListOf(arrayListOf(dayMin, month, year))
+                            //arrayStr = mutableListOf(Day(year, month, dayMin))
+                            //eventObject.date = arrayStr
                         }
                         else
                         {
@@ -94,9 +92,7 @@ class PagesParse {
                             val month = Utils.convertMonth(arr[3])
                             val year = arr[4].toInt()
 
-                            val str = arrayListOf(arrayListOf(dayMin, month, year))
-                            eventObject.date = getDataNormal(0, 1, str)
-                            //eventObject.dataList = arrayListOf(arrayListOf(dayMin, month, year))
+                            eventObject.date = mutableListOf(Day(dayMin, month, year))
                         }
 
                         list.add(eventObject)
@@ -106,9 +102,8 @@ class PagesParse {
                         val month = Utils.convertMonth(arr[1])
                         val year = arr[2].toInt()
 
-                        val str = arrayListOf(arrayListOf(days, month, year))
-                        eventObject.date = getDataNormal(0, 1, str)
-                        //eventObject.dataList = arrayListOf(arrayListOf(days, month, year))
+                        eventObject.date = mutableListOf(Day(days, month, year))
+
                         //ToDo тут фильтр будет
                         list.add(eventObject)
 
@@ -150,7 +145,7 @@ class PagesParse {
                         var month = Utils.convertMonth(arr[1])
                         val day = arr[2].dropLast(1).toInt()
                         var year = arr[3].toInt()
-                        val FirstArr = arrayListOf(day, month, year)
+                        val FirstArr = Day(day, month, year)
                         var day2 = arr[4].drop(1).toInt() + day
                         var month2 = 0
                         if( arr[5].contains("month"))
@@ -162,7 +157,7 @@ class PagesParse {
                                 year++
                             }
 
-                            eventObject.date = getDataNormal(0, 1, arrayListOf(FirstArr, arrayListOf(day, month2, year)))
+                            eventObject.date = mutableListOf(FirstArr, Day(day, month2, year))
                         }
                         else if( arr[5].contains("days"))
                         {
@@ -176,7 +171,7 @@ class PagesParse {
                                     year++
                                 }
                             }
-                            eventObject.date = getDataNormal(0, 1, arrayListOf(FirstArr, arrayListOf(day2, month, year)))
+                            eventObject.date = mutableListOf(FirstArr, Day(day2, month2, year))
                         }
 
                     }
@@ -192,8 +187,7 @@ class PagesParse {
                         val sDay = sDate[1].toInt()
                         val fMonth = Utils.convertMonth(fDate[0])
                         val sMonth = Utils.convertMonth(sDate[0])
-                        eventObject.date = getDataNormal(0, 1, arrayListOf(arrayListOf(fDay, fMonth, year), arrayListOf(sDay, sMonth, year)))
-                       // eventObject.dataList = arrayListOf(arrayListOf(fDay, fMonth, year), arrayListOf(sDay, sMonth, year))
+                        eventObject.date = mutableListOf(Day(fDay, fMonth, year), Day(sDay, sMonth, year))
                     }
                     else
                     {
@@ -203,15 +197,16 @@ class PagesParse {
                         val dat = arr[0].split(' ')
                         val month = Utils.convertMonth(dat[0])
                         val day = dat[1].toInt()
-                        eventObject.date = getDataNormal(0, 1, arrayListOf(arrayListOf(day, month, year)))
-                        //eventObject.dataList = arrayListOf(arrayListOf(day, month, year))
+                        eventObject.date = mutableListOf(Day(day, month, year))
                     }
 
 
                     list.add(eventObject)
                 }catch (e : Exception){}
             }
-            }catch (e : Exception) {}
+        }catch (e : Exception) {}
+
+
     }
     suspend fun hacktons()
     {
@@ -310,6 +305,7 @@ class PagesParse {
         return ""
     }
 
+    /*
     fun mergeSort(list : ArrayList<EventObject>) : ArrayList<EventObject>
     {
         if( list.size <= 1)
@@ -365,7 +361,7 @@ class PagesParse {
 
         return array
     }
-
+*/
     fun getDataCode(list : ArrayList<ArrayList<Int>>?) : Long
     {
         val result = list!![0]

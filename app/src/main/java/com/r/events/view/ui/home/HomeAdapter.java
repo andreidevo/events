@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.r.events.Database.EventObject;
 import com.r.events.R;
 import com.r.events.model.ClassesForRecyclerView.EventItem;
+import com.r.events.model.ClassesForRecyclerView.HeaderItem;
 import com.r.events.model.ClassesForRecyclerView.ListItem;
 
 import java.util.List;
@@ -77,7 +78,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 final EventObject eventObg = event.getEvent();
                 EventViewHolder holder = (EventViewHolder) viewHolder;
 
-                holder.date.setText(eventObg.getDate());
+                holder.date.setText(eventObg.getDataNormal(0, 1));
                 holder.title.setText(eventObg.getName());
 
                 /**
