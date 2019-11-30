@@ -28,6 +28,7 @@ class PagesParse {
         it_events()
         dexigner()
         hacktons()
+        itmo_uni()
     }
     suspend fun it_events()
     {
@@ -59,15 +60,6 @@ class PagesParse {
                     eventObject.photoHref = "https://it-events.com${photoH.substring(idx1, idx2)}"
                     try {
                         eventObject.location = SomeElement.getElementsByClass("event-list-item__info_location").text()
-                    }catch (e : Exception){ }
-
-                    try {
-                        val check = SomeElement.getElementsByClass("event-list-item__info_online").text()
-                        if( check != "")
-                            eventObject.online = true
-                        else
-                            eventObject.online = false
-
                     }catch (e : Exception){ }
 
                     val arr = dateStr.split(' ')
@@ -285,6 +277,38 @@ class PagesParse {
         } catch (e: IOException) { }
     }
 
+    suspend fun itmo_uni()
+    {
+        //https://news.itmo.ru/ru/events/
+
+        val doc: Document
+        try {
+            //https://isu.ifmo.ru/pls/apex/f?p=2143:0:0:DWNLD_F:NO::FILE:808F3BC99A11BBD6056C8D588BC9EFC9
+            doc = Jsoup.connect("https://news.itmo.ru/ru/events/").get()
+            val di: Elements = doc.getElementsByClass("events")[0].getElementsByClass("item")
+
+            for (eventer in 0 until di.size) {
+                try {
+                    val SomeElement = di[eventer]
+
+                    val eventObject = EventObject()
+                    eventObject.name = SomeElement.getElementsByTag("h3")[0].text()
+                    var date = SomeElement.getElementsByTag("ul")[0].text().split(' ')
+                    var day = date[0].toInt()
+                    var month = Utils.convertMonth(date[1])
+                    var year = date[2].toInt()
+
+                    eventObject.date = Day(day, month, year)
+                    eventObject.href = SomeElement.getElementsByTag("a")[0].attr("href")
+                    eventObject.photoHref = "" +  SomeElement.getElementsByTag("img")[0].attr("src")
+                    eventObject.sector = "0"
+                    list.add(eventObject)
+
+                }catch(e : Exception){}
+            }
+        }catch (e : Exception){}
+
+    }
     fun getDataNormal(len: Int, format: Int, data : ArrayList<ArrayList<Int>>): String {
         val RUS: Int = 0
         val ENG: Int = 1
