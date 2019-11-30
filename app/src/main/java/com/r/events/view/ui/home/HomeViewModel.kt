@@ -35,9 +35,10 @@ open class HomeViewModel(val database: EventObjectDAO,
     }
     fun getData() {
         uiScope.launch {
-            //clear() //ToDo Fix it
+            clear() //ToDo Fix it
             for(event in list) {
                 //event.favourite = true
+
                 insert(event)
                 //if(event.favourite == true)
                 //    Log.d("TAG11", "Passed true event")

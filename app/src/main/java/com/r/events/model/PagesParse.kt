@@ -27,12 +27,13 @@ class PagesParse {
     suspend  fun getDataFromPage(){
         it_events()
         dexigner()
-        //list.sortBy { selector(it).compareTo(selector(it+1))}
+        hacktons()
     }
     suspend fun it_events()
     {
         val doc: Document
         try {
+
             doc = Jsoup.connect("https://it-events.com/").get()
             val div: Elements = doc.getElementsByClass("section")[0].getElementsByClass("event-list-item")
 
@@ -109,6 +110,7 @@ class PagesParse {
         } catch (e: IOException) { }
 
     }
+
     suspend fun dexigner()
     {
 
@@ -209,6 +211,7 @@ class PagesParse {
 
 
     }
+
     suspend fun hacktons()
     {
         //http://www.xn--80aa3anexr8c.xn--p1ai/
@@ -223,22 +226,56 @@ class PagesParse {
                     val SomeElement = div[eventer]
 
                     val eventObject = EventObject()
-                    //teg a - href
-                    //t776__title - titile
-                    //t776__desrc - descr -> strong - date
-                    //t776__imgwrapper - photoHref
-
-
-                    //10 октября - 25 ноября, Онлайн Призовой фонд и призы. Призовой фонд и призы. Призовой фонд и призы.
                     eventObject.href =  (SomeElement.getElementsByTag("a")[0].attr("href"))
                     eventObject.name =  (SomeElement.getElementsByClass("t-name")[0].text())
-                    val op = SomeElement.getElementsByClass("t-descr")[0].getElementsByTag("strong").text()
-                    val p = op.substring(0, op.indexOf(',') + 1)
-                    //parse !!!!!!
-                    //eventObject.(arrayListOf(arrayListOf(0,1,2019)))
                     eventObject.photoHref= (SomeElement.getElementsByClass("t-img")[0].attr("src").replace("-/empty/", ""))
 
-                    val x = 5;
+                    val op = SomeElement.getElementsByClass("t-descr")[0].getElementsByTag("strong").text()
+                    val p = op.substring(0, op.indexOf(',') + 1)
+                    if( p[p.length -1] == ',')
+                        p.dropLast(1)
+
+                    var Day = Day()
+                    //parse !!!!!!
+                    val arr = p.split(" ")
+                    if( arr.size ==  5)
+                    {
+                        //10 октября - 25 ноября
+                        val day1 = arr[0].toInt()
+                        val month1 = utils.convertMonth(arr[1])
+                        val year = 2019
+
+                        val day2 = arr[3].toInt()
+                        val month2 = utils.convertMonth(arr[4])
+                        Day = Day(day1, month1, year)
+                        Day.addInterval(day2, month2, year)
+
+
+                    }
+                    else if( arr.size == 4)
+                    {
+                        //01 - 11 ноября
+                        val day1 = arr[0].toInt()
+                        val month1 = utils.convertMonth(arr[3])
+                        val year = 2019
+
+                        val day2 = arr[2].toInt()
+                        Day = Day(day1, month1, year)
+                        Day.addInterval(day2, month1, year)
+                    }
+                    //todo сейчас стоит конечная дата, а не промежуток
+                    else if( arr.size == 3)
+                    {
+                        val day1 = arr[1].toInt()
+                        val month1 = utils.convertMonth(arr[2])
+                        val year = 2019
+
+                        Day = Day(day1, month1, year)
+                    }
+
+                    eventObject.sector = "0"
+                    eventObject.date = Day
+
 
                     list.add(eventObject)
                 } catch (e: Exception) {
