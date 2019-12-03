@@ -1,12 +1,13 @@
 package com.r.events.model
 
 /*
-    Day - класс для хранения информации о дне проведения мероприятия
+    Day - класс для хранения информации о днях проведения мероприятия
     .AddInterval() - Добавление промежутка
     .getInterval() - Возвращает интервал (первый и второй день)
     .getSecondDay() - Возвращает второй день из промежутка
     .getFirstDay() - Возвращает первый день из промежутка
     .getSFirstDay() - Возвращает строковой формат первой строки
+    .getSimpleDate() - Возвращает дату строкой
 
 */
 class Day(val day : Int? = null, val month : Int? = null, val year: Int? = null)
@@ -60,6 +61,7 @@ class Day(val day : Int? = null, val month : Int? = null, val year: Int? = null)
         else
             return "null"
     }
+
     /*
         Простой метод для использования, чтобы получить нормальную строковую дату
         Отличие от другие - не надо проверять на наличие промежутка
@@ -71,7 +73,5 @@ class Day(val day : Int? = null, val month : Int? = null, val year: Int? = null)
         else
             return getSFirstDay(type, len) + " - " + getSSecondDay(type, len)
     }
-
-
 }
 

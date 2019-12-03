@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,6 +19,7 @@ import com.r.events.R
 import com.r.events.model.ClassesForRecyclerView.EventItem
 import com.r.events.model.ClassesForRecyclerView.HeaderItem
 import com.r.events.model.ClassesForRecyclerView.ListItem
+import com.r.events.view.FilterBottomSheet
 import com.r.events.view.ui.home.FactoryFavourites
 
 class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener{
@@ -64,6 +66,13 @@ class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener{
                 }
             }
         })
+
+        val filterBtn = view.findViewById<ImageView>(R.id.filter_btn)
+
+        filterBtn.setOnClickListener{
+            val dialog = FilterBottomSheet()
+            dialog.show(activity?.supportFragmentManager, "ada")
+        }
 
         return view
     }

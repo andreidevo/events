@@ -8,6 +8,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +19,7 @@ import com.r.events.R;
 import com.r.events.model.ClassesForRecyclerView.EventItem;
 import com.r.events.model.ClassesForRecyclerView.HeaderItem;
 import com.r.events.model.ClassesForRecyclerView.ListItem;
+import com.r.events.model.ImgZoomDialog;
 
 import java.util.List;
 
@@ -85,7 +89,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                  * Ищем количество Header-ов ДО нашего елемента что-бы получить нормальный индекс
                  */
                 int numToDel = 0;
-                for(int i=0; i<events.size(); i++) {
+                for(int i=0; i< events.size(); i++) {
                     if(ev.get(i).getType() == ListItem.TYPE_HEADER)
                         numToDel++;
                 }
@@ -120,7 +124,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(itemView);
             txt_header = itemView.findViewById(R.id.header_txt);
         }
-
     }
 
     private static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -128,22 +131,46 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView date;
         TextView title;
         ImageView img;
+        int checkInt = 0;
         int position;
+        Boolean imgZoom = false;
         EventObject eventObj;
-
+        ImageView check;
         OnItemClickListener onEventListener;
 
-        EventViewHolder(View itemView, OnItemClickListener onEventListener) {
+        EventViewHolder(View itemView, final OnItemClickListener onEventListener) {
             super(itemView);
             img = itemView.findViewById(R.id.event_image);
             date = itemView.findViewById(R.id.event_date);
             title = itemView.findViewById(R.id.event_title);
-
             this.onEventListener = onEventListener;
-            ImageButton imgButton = itemView.findViewById(R.id.item_image_button);
-            imgButton.setOnClickListener(this);
-        }
 
+            check = itemView.findViewById(R.id.item_image_button);
+            check.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(checkInt == 0)
+                    {
+                        check.setImageResource(R.drawable.ic_star_color);
+                        checkInt = 1;
+                    }
+                    else
+                    {
+                        check.setImageResource(R.drawable.ic_star);
+                        checkInt = 0;
+                    }
+                    onEventListener.onItemClick(eventObj);
+                }
+            });
+
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogFragment dialog = new ImgZoomDialog(eventObj.getPhotoHref(), (AppCompatActivity)v.getContext());
+                    FragmentManager manager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
+                    dialog.show(manager, "dialog1");
+            }});
+        }
         @Override
         public void onClick(View v) {
             onEventListener.onItemClick(eventObj);

@@ -44,11 +44,8 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener{
     ): View? {
 
         application = requireNotNull(this.activity).application
-
         val dataSource = EventDatabase.getInstance(application).eventDatabaseDao
-
         val viewModelFactory = Factory(dataSource, application)
-
         homeViewModel =
             ViewModelProviders.of(
                 this, viewModelFactory).get(HomeViewModel::class.java)
@@ -75,7 +72,6 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener{
 
         val filterBtn = view.findViewById<ImageView>(R.id.filter_btn)
 
-        //почему-то setupFilterBtn не работает
         filterBtn.setOnClickListener{
             val dialog = FilterBottomSheet()
             dialog.show(activity?.supportFragmentManager, "ada")
