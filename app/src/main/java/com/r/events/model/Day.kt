@@ -95,5 +95,18 @@ class Day(val day : Int? = null, val month : Int? = null, val year: Int? = null)
         else
             return getSFirstDay(type, len) + " - " + getSSecondDay(type, len)
     }
+
+    /*
+        Возвращет разницу между newDay && day в днях
+     */
+    fun getDiffenrenceInDays(newDay : Day) : Int {
+        var ans = 0
+
+        ans += newDay.year!!.minus(year!!) * 365
+        ans += newDay.month!!.minus(month!!) * 30
+        ans += newDay.day!!.minus(day!!)
+
+        return ans
+    }
 }
 
