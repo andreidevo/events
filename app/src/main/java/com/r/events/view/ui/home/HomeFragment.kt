@@ -24,6 +24,7 @@ import com.r.events.model.ClassesForRecyclerView.ListItem
 import com.r.events.model.list
 import com.r.events.view.FilterBottomSheet
 import java.lang.Exception
+import java.util.Comparator
 
 
 class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener{
@@ -84,13 +85,13 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener{
         val eventMap = HashMap<String, ArrayList<EventObject>>()
 
 
-            for (obj in list) {
-                val eventSector = obj.sector!!
-                if (eventMap[eventSector] == null) {
-                    eventMap[eventSector] = ArrayList()
-                }
-                eventMap[eventSector]!!.add(obj)
+        for (obj in list) {
+            val eventSector = obj.sector!!
+            if (eventMap[eventSector] == null) {
+                eventMap[eventSector] = ArrayList()
             }
+            eventMap[eventSector]!!.add(obj)
+        }
         return eventMap
     }
 
@@ -108,6 +109,17 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener{
                 eventList.add(eventObj)
             }
         }
+
+        eventList.sortWith(object: Comparator<ListItem>{
+            override fun compare(p11: ListItem, p22: ListItem): Int {
+                val p1 = p11 as EventItem
+                val p2 = p22 as EventItem
+                val e1 = p1.event
+                val e2 = p2.event
+
+                return e1.date!!.compareTo(e2.date!!)
+            }
+        })
 
         return eventList
     }

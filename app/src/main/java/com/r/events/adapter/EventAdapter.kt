@@ -25,6 +25,8 @@ class EventAdapter(private val context: Context, private val events: ArrayList<E
         return EventHolder(view)
     }
 
+    //test
+
     override fun onBindViewHolder(holder: EventHolder, position: Int) {
         val eventObject = events[position]
 

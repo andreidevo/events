@@ -1,5 +1,7 @@
 package com.r.events.model
 
+import android.util.Log
+
 /*
     Day - класс для хранения информации о днях проведения мероприятия
     .AddInterval() - Добавление промежутка
@@ -10,9 +12,29 @@ package com.r.events.model
     .getSimpleDate() - Возвращает дату строкой
 
 */
-class Day(val day : Int? = null, val month : Int? = null, val year: Int? = null)
+class Day(val day : Int? = null, val month : Int? = null, val year: Int? = null)  : Comparable<Day>
 {
     private var secondDay : Day? = null
+
+    /*
+        Компаратор для сортировки
+     */
+    override fun compareTo(other: Day): Int {
+
+        if (year == other.year) {
+            if (month == other.month) {
+                if (day == other.day) {
+                    return 0
+                } else
+                    return return day!!.compareTo(other.day!!)
+            } else
+                return month!!.compareTo(other.month!!)
+        } else {
+            Log.d("TAG1", "Compare: " + year + other.year + year!!.compareTo(other.year!!))
+            return year!!.compareTo(other.year!!)
+        }
+
+    }
 
     fun addInterval(day : Int, month : Int, year: Int)
     {
@@ -44,12 +66,12 @@ class Day(val day : Int? = null, val month : Int? = null, val year: Int? = null)
     */
     fun getSFirstDay(type : Int, len : Int) : String
     {
-            if(type == 0)
-                return "$day ${utils.convertNumToMonth((month!!), len)} $year"
-            else if( type == 1)
-                return "$day-$month-$year"
-            else
-                return "null"
+        if(type == 0)
+            return "$day ${utils.convertNumToMonth((month!!), len)} $year"
+        else if( type == 1)
+            return "$day-$month-$year"
+        else
+            return "null"
 
     }
     fun getSSecondDay(type : Int, len : Int) : String
