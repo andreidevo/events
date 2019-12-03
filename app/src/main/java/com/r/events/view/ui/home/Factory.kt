@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.r.events.Database.EventObjectDAO
 
 class Factory(
+
     private val dataSource: EventObjectDAO,
     private val application: Application
 ) : ViewModelProvider.Factory {

@@ -1,12 +1,17 @@
 package com.r.events.view
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -26,13 +31,10 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
 
         val view = inflater.inflate(R.layout.bottom_sheet_dialog_filter, container, false)
 
-
         val type_live = view.findViewById<SparkButton>(R.id.type_live)
         val type_conf = view.findViewById<SparkButton>(R.id.type_conf)
         val theme_programming = view.findViewById<SparkButton>(R.id.theme_programming)
         val theme_design = view.findViewById<SparkButton>(R.id.theme_design)
-
-
         val application = requireNotNull(this.activity).application
 
         //homeViewModel имеет конструктор и получает на входе контекст(application) и обьект ДБ(dataSource(смотри внизу)). Для удобсва есть Factory
@@ -49,15 +51,13 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
             override fun onEventAnimationEnd(button: ImageView?, buttonState: Boolean) {
             }
             override fun onEventAnimationStart(button: ImageView?, buttonState: Boolean) {
+                vibrate(view.context, 40)
             }
             override fun onEvent(button: ImageView, buttonState: Boolean) {
                 if (buttonState) {
-                    // Button is active
                     filters.online = true
                     type_live.isChecked = true
-                    //какая-то функция update всех данных
                 } else {
-                    // Button is inactive
                     filters.online = false
                     type_live.isChecked = false
                 }
@@ -65,10 +65,13 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
         })
         type_conf.setEventListener(object : SparkEventListener {
             override fun onEventAnimationEnd(button: ImageView?, buttonState: Boolean) {
+
             }
             override fun onEventAnimationStart(button: ImageView?, buttonState: Boolean) {
+                vibrate(view.context, 40 )
             }
             override fun onEvent(button: ImageView, buttonState: Boolean) {
+
                 if (buttonState) {
                     type_conf.isChecked = true
 
@@ -94,6 +97,7 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
             override fun onEventAnimationEnd(button: ImageView?, buttonState: Boolean) {
             }
             override fun onEventAnimationStart(button: ImageView?, buttonState: Boolean) {
+                vibrate(view.context, 40 )
             }
             override fun onEvent(button: ImageView, buttonState: Boolean) {
                 if (buttonState) {
@@ -121,6 +125,7 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
             override fun onEventAnimationEnd(button: ImageView?, buttonState: Boolean) {
             }
             override fun onEventAnimationStart(button: ImageView?, buttonState: Boolean) {
+                vibrate(view.context, 40 )
             }
             override fun onEvent(button: ImageView, buttonState: Boolean) {
                 if (buttonState) {
@@ -148,5 +153,15 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
         return view
 
     }
+    fun vibrate (context : Context, miliseconds : Long)
+    {
+        if (Build.VERSION.SDK_INT >= 26) {
+            (context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator).vibrate(VibrationEffect.createOneShot(miliseconds, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            (context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator).vibrate(miliseconds)
+        }
+
+    }
+
 
 }

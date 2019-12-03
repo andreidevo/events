@@ -19,7 +19,6 @@ import java.util.ArrayList
 class EventAdapter(private val context: Context, private val events: ArrayList<EventObject>) :
     RecyclerView.Adapter<EventAdapter.EventHolder>() {
 
-    private var id = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.event_item, parent, false)
 
@@ -41,7 +40,6 @@ class EventAdapter(private val context: Context, private val events: ArrayList<E
     }
 
     override fun getItemId(position: Int): Long {
-
         return position.toLong()
     }
 
@@ -54,6 +52,6 @@ class EventAdapter(private val context: Context, private val events: ArrayList<E
         internal val eventTitle: TextView = itemView.findViewById(R.id.event_title)
         internal val eventDate: TextView = itemView.findViewById(R.id.event_date)
         internal val eventImage: ImageView = itemView.findViewById(R.id.event_image)
-
+        internal val eventStar : ImageView = itemView.findViewById(R.id.item_image_button)
     }
 }

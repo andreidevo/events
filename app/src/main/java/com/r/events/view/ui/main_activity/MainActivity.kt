@@ -44,10 +44,9 @@ class MainActivity : AppCompatActivity() {
 
             val dialog : DialogFragment = ProgressLoad()
 
-            if(  parseChecker == false)
+            if(parseChecker == false)
             {
                 GlobalScope.async {
-
                     //открываем progressBar
                     runOnUiThread {
                         dialog.show(supportFragmentManager.beginTransaction(), "dialog1")
@@ -68,12 +67,10 @@ class MainActivity : AppCompatActivity() {
                         val fragList = ArrayList<Fragment>()
                         viewmodel.setFragments(fragList)
                         viewmodel.viewGroupSetAdapter(fragList, view_pager, supportFragmentManager, bottom_navigation_view_linear)
-
                         bottom_navigation_view_linear.setNavigationChangeListener(BubbleNavigationChangeListener { view, position ->
                             view_pager.setCurrentItem(position, true)
                         })
                     }
-
                     parseChecker = true
                 }
             }
@@ -84,10 +81,5 @@ class MainActivity : AppCompatActivity() {
             val toast = Toast.makeText(this@MainActivity, "NOPE", Toast.LENGTH_SHORT)
             toast.show()
         }
-        //просто сделаем какие-то фильтры
-        //filters.setDate(arrayListOf(arrayListOf(10,10,2019)))
-        //filters.setOnline(false)
-
-
     }
 }

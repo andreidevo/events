@@ -78,12 +78,12 @@ public class FavouritesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 final EventObject eventObg = event.getEvent();
                 EventViewHolder holder = (EventViewHolder) viewHolder;
 
-                //todo null exeption!
+                //todo null exeption! P.s да)
                 holder.date.setText(eventObg.getDate().getSimpleDate(0,0));
                 holder.title.setText(eventObg.getName());
                 holder.eventObj = eventObg;
 
-                /**
+                /*
                  * Ищем количество Header-ов ДО нашего елемента что-бы получить нормальный индекс
                  */
                 int numToDel = 0;
@@ -129,6 +129,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView date;
         TextView title;
         ImageView img;
+        ImageView check;
         EventObject eventObj;
         int position;
 
