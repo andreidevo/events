@@ -29,6 +29,9 @@ class PagesParse {
         dexigner()
         hacktons()
         itmo_uni()
+
+        list.sortWith(object: Comparator<EventObject>{
+            override fun compare(p1: EventObject, p2: EventObject): Int = p1.date!!.compareTo(p2.date!!)})
     }
     suspend fun it_events()
     {
