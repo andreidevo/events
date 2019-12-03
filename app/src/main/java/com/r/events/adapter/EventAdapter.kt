@@ -31,7 +31,7 @@ class EventAdapter(private val context: Context, private val events: ArrayList<E
     override fun onBindViewHolder(holder: EventHolder, position: Int) {
         val eventObject = events[position]
 
-        holder.eventDate.text = eventObject.getDataNormal(0, 0)
+        holder.eventDate.text = eventObject.date!!.getSimpleDate(0, 0)
         Glide.with(context).load(eventObject.photoHref).into(holder.eventImage)
         holder.eventTitle.text = eventObject.name
     }

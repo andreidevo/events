@@ -23,6 +23,7 @@ import com.r.events.model.ClassesForRecyclerView.HeaderItem
 import com.r.events.model.ClassesForRecyclerView.ListItem
 import com.r.events.model.list
 import com.r.events.view.FilterBottomSheet
+import java.lang.Exception
 
 
 class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener{
@@ -86,13 +87,14 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener{
     fun getMap(list : List<EventObject>) : HashMap<String, ArrayList<EventObject>> {
         val eventMap = HashMap<String, ArrayList<EventObject>>()
 
-        for (obj in list) {
-            val eventSector = obj.sector!!
-            if (eventMap[eventSector] == null) {
-                eventMap[eventSector] = ArrayList()
+
+            for (obj in list) {
+                val eventSector = obj.sector!!
+                if (eventMap[eventSector] == null) {
+                    eventMap[eventSector] = ArrayList()
+                }
+                eventMap[eventSector]!!.add(obj)
             }
-            eventMap[eventSector]!!.add(obj)
-        }
         return eventMap
     }
 

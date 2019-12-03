@@ -78,7 +78,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 final EventObject eventObg = event.getEvent();
                 EventViewHolder holder = (EventViewHolder) viewHolder;
 
-                holder.date.setText(eventObg.getDataNormal(0, 1));
+                holder.date.setText(eventObg.getDate().getSimpleDate(0,0));
                 holder.title.setText(eventObg.getName());
 
                 /**

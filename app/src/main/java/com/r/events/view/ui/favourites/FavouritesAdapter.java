@@ -78,7 +78,8 @@ public class FavouritesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 final EventObject eventObg = event.getEvent();
                 EventViewHolder holder = (EventViewHolder) viewHolder;
 
-                holder.date.setText(eventObg.getDataNormal(0, 1));
+                //todo null exeption!
+                holder.date.setText(eventObg.getDate().getSimpleDate(0,0));
                 holder.title.setText(eventObg.getName());
                 holder.eventObj = eventObg;
 

@@ -27,22 +27,18 @@ import kotlinx.coroutines.*
 //ToDo сделать так, чтобы context не нужно было постоянно ложить в каждый метод
 open class HomeViewModel(val database: EventObjectDAO,
                          application: Application) : AndroidViewModel(application) {
-
     private var viewModelJob = Job()
-
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
     var events : LiveData<List<EventObject>> = database.getAllEvents()
-
     fun getAllData() : LiveData<List<EventObject>> {
         return events
     }
-
     fun getData() {
         uiScope.launch {
-            //clear() //ToDo Fix it
+            clear() //ToDo Fix it
             for(event in list) {
                 //event.favourite = true
+
                 insert(event)
                 //if(event.favourite == true)
                 //    Log.d("TAG11", "Passed true event")
