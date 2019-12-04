@@ -22,7 +22,9 @@ import com.r.events.view.ui.home.HomeViewModel
 import com.varunest.sparkbutton.SparkButton
 import com.varunest.sparkbutton.SparkEventListener
 
+
 class FilterBottomSheet : BottomSheetDialogFragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,20 +49,32 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
 
         val filters = homeViewModel.getFilters()
 
+        val buttonsfilter = homeViewModel.getButtonsfilters()
+        //проверить какие кнопки были нажаты и поставить чекеры
+
+        if( buttonsfilter.theme_programming == 1)
+            theme_programming.isChecked = true
+
+
         type_live.setEventListener(object : SparkEventListener {
+
             override fun onEventAnimationEnd(button: ImageView?, buttonState: Boolean) {
             }
             override fun onEventAnimationStart(button: ImageView?, buttonState: Boolean) {
                 vibrate(view.context, 40)
             }
             override fun onEvent(button: ImageView, buttonState: Boolean) {
+
+
                 if (buttonState) {
                     filters.online = true
                     type_live.isChecked = true
                 } else {
                     filters.online = false
                     type_live.isChecked = false
+
                 }
+
             }
         })
         type_conf.setEventListener(object : SparkEventListener {
@@ -102,23 +116,27 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
             override fun onEvent(button: ImageView, buttonState: Boolean) {
                 if (buttonState) {
                     theme_programming.isChecked = true
+                    buttonsfilter.theme_programming = 1
 
-                    if (filters.type?.contains(0)!!) {
+                    if (!filters.sector?.contains(0)!!) {
                         val list = filters.sector
                         list?.add(0)
                         filters.sector = list
                     }
                 } else {
 
-                    if(filters.type?.contains(0)!!)
+                    if(filters.sector?.contains(0)!!)
                     {
                         val list = filters.sector
                         list?.remove(0)
                         filters.sector = list
                     }
+                    buttonsfilter.theme_programming = 0
                     theme_programming.isChecked = false
 
                 }
+                homeViewModel.filter()
+
             }
         })
         theme_design.setEventListener(object : SparkEventListener {
@@ -153,7 +171,8 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
         return view
 
     }
-    fun vibrate (context : Context, miliseconds : Long)
+
+    private fun vibrate (context : Context, miliseconds : Long)
     {
         if (Build.VERSION.SDK_INT >= 26) {
             (context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator).vibrate(VibrationEffect.createOneShot(miliseconds, VibrationEffect.DEFAULT_AMPLITUDE))

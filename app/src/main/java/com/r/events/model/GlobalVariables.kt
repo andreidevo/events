@@ -1,7 +1,9 @@
 package com.r.events.model
 
 import com.r.events.Database.EventObject
+import com.varunest.sparkbutton.SparkButton
 
+var buttonsfilters : buttonsFilter  = buttonsFilter()
 val utils = Utils()
 var list : ArrayList<EventObject> = arrayListOf()
 var filters : Filters = Filters("all", arrayListOf(arrayListOf()), arrayListOf(),"all", false, arrayListOf() )

@@ -26,6 +26,8 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import java.text.SimpleDateFormat
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.r.events.model.*
+import com.varunest.sparkbutton.SparkButton
+import kotlin.collections.ArrayList
 
 
 //ToDo сделать так, чтобы context не нужно было постоянно ложить в каждый метод
@@ -35,6 +37,7 @@ open class HomeViewModel(val database: EventObjectDAO,
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     var events : LiveData<List<EventObject>> = database.getAllEvents()
     lateinit var favourites : List<EventObject>
+
     fun getAllData() : LiveData<List<EventObject>> {
         return events
     }
@@ -51,6 +54,7 @@ open class HomeViewModel(val database: EventObjectDAO,
             for(event in list) {
                 insert(event)
             }
+
             for(event in favourites) {
                 insert(event)
             }
@@ -70,6 +74,18 @@ open class HomeViewModel(val database: EventObjectDAO,
         }
     }
 
+    fun filter()
+    {
+        uiScope.launch {
+            clear()
+            val sectors = filters.sector?.joinToString()
+            list = list.filter { index -> sectors!!.contains(index.sector.toString())} as ArrayList<EventObject>
+
+            for(event in list) {
+                insert(event)
+            }
+        }
+    }
     private suspend fun insert(event: EventObject) {
         withContext(Dispatchers.IO) {
             if (database.getItemById(event.name) == null) {
@@ -112,5 +128,9 @@ open class HomeViewModel(val database: EventObjectDAO,
 
     fun getFilters() : Filters{
         return filters
+    }
+    fun getButtonsfilters() : buttonsFilter
+    {
+        return buttonsfilters
     }
 }
