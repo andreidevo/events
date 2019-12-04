@@ -16,8 +16,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import java.util.*
 
-class ImgZoomDialog(private var imgHref : String,
-                    private var contextt : Context) : DialogFragment()
+class ImgZoomDialog(private var imgHref : String) : DialogFragment()
 {
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,7 +24,10 @@ class ImgZoomDialog(private var imgHref : String,
         savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.dialog_fragment_withimg, null)
-        var img = view.findViewById<ImageView>(R.id.image)
+        var img = view.findViewById<ImageView>(R.id.imageOp)
+        Glide.with(view.context).load(imgHref).into(img)
+        getDialog().setCanceledOnTouchOutside(true)
+
         return view
     }
 }

@@ -166,9 +166,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogFragment dialog = new ImgZoomDialog(eventObj.getPhotoHref(), (AppCompatActivity)v.getContext());
+                    DialogFragment dialog = new ImgZoomDialog(eventObj.getPhotoHref());
                     FragmentManager manager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
-                    dialog.show(manager, "dialog1");
+                    dialog.show(manager.beginTransaction(), "dialog1");
             }});
         }
         @Override
