@@ -26,17 +26,25 @@ import com.varunest.sparkbutton.SparkEventListener
 class FilterBottomSheet : BottomSheetDialogFragment() {
 
 
+    lateinit var type_live : SparkButton
+    lateinit var type_conf : SparkButton
+    lateinit var theme_programming : SparkButton
+    lateinit var theme_design : SparkButton
+    lateinit var type_hackaton : SparkButton
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-
         val view = inflater.inflate(R.layout.bottom_sheet_dialog_filter, container, false)
 
-        val type_live = view.findViewById<SparkButton>(R.id.type_live)
-        val type_conf = view.findViewById<SparkButton>(R.id.type_conf)
-        val theme_programming = view.findViewById<SparkButton>(R.id.theme_programming)
-        val theme_design = view.findViewById<SparkButton>(R.id.theme_design)
+        type_live = view.findViewById(R.id.type_live)
+        type_conf = view.findViewById(R.id.type_conf)
+        type_hackaton = view.findViewById(R.id.type_hackaton)
+        theme_programming = view.findViewById(R.id.theme_programming)
+        theme_design = view.findViewById(R.id.theme_design)
+
+
         val application = requireNotNull(this.activity).application
 
         //homeViewModel имеет конструктор и получает на входе контекст(application) и обьект ДБ(dataSource(смотри внизу)). Для удобсва есть Factory
@@ -54,6 +62,8 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
 
         if( buttonsfilter.theme_programming == 1)
             theme_programming.isChecked = true
+        if( buttonsfilter.type_hackton == 1)
+            type_hackaton.isChecked = true
 
 
         type_live.setEventListener(object : SparkEventListener {
@@ -107,6 +117,42 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
                 }
             }
         })
+        type_hackaton.setEventListener(object : SparkEventListener {
+            override fun onEventAnimationEnd(button: ImageView?, buttonState: Boolean) {
+
+            }
+            override fun onEventAnimationStart(button: ImageView?, buttonState: Boolean) {
+                vibrate(view.context, 40 )
+            }
+            override fun onEvent(button: ImageView, buttonState: Boolean) {
+
+                if (buttonState) {
+                    type_hackaton.isChecked = true
+
+                    if (!filters.type?.contains(4)!!) {
+                        val list = filters.type
+                        list?.add(4)
+                        filters.type = list
+                        homeViewModel.filter()
+                    }
+                    buttonsfilter.type_hackton = 1
+                } else {
+
+                    if(filters.type?.contains(4)!!)
+                    {
+                        val list = filters.type
+                        list?.remove(4)
+                        filters.type = list
+                        homeViewModel.filter()
+
+                    }
+                    type_hackaton.isChecked = false
+                    buttonsfilter.type_hackton = 0
+
+                }
+            }
+        })
+
         theme_programming.setEventListener(object : SparkEventListener {
             override fun onEventAnimationEnd(button: ImageView?, buttonState: Boolean) {
             }

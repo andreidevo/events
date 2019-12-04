@@ -116,6 +116,8 @@ class Utils {
                 return "Конференция"
             else if( id == 3)
                 return "Митап"
+            else if( id == 4)
+                return "Хакатон"
             else
                 return "null_type"
 

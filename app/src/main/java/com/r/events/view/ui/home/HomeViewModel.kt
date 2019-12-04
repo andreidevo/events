@@ -79,8 +79,11 @@ open class HomeViewModel(val database: EventObjectDAO,
         uiScope.launch {
             clear()
             val sectors = filters.sector?.joinToString()
-            list = list.filter { index -> sectors!!.contains(index.sector.toString())} as ArrayList<EventObject>
-
+            val types = filters.type?.joinToString()
+            if( sectors!!.isNotEmpty())
+                list = list.filter { index -> sectors.contains(index.sector.toString())} as ArrayList<EventObject>
+            if( types!!.isNotEmpty())
+                list = list.filter { index -> types.contains(index.type.toString())} as ArrayList<EventObject>
             for(event in list) {
                 insert(event)
             }
@@ -101,9 +104,6 @@ open class HomeViewModel(val database: EventObjectDAO,
                 val year = formattedDate.split('-')[2].toInt()
 
                 val currentDay = Day(day, month, year)
-
-                //val df = SimpleDateFormat("dd-MMM-yyyy")
-                //val formattedDate = df.format(currentTime)
 
                 val diff = currentDay.getDiffenrenceInDays(event.date!!)
                 if (diff in 0..99) {

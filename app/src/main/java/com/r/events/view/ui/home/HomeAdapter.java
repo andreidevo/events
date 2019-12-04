@@ -1,6 +1,8 @@
 package com.r.events.view.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -80,7 +83,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case ListItem.TYPE_EVENT: {
                 final EventItem event = (EventItem) ev.get(position);
                 final EventObject eventObg = event.getEvent();
-                EventViewHolder holder = (EventViewHolder) viewHolder;
+                final EventViewHolder holder = (EventViewHolder) viewHolder;
 
                 holder.date.setText(eventObg.getDate().getSimpleDate(0,0));
                 holder.title.setText(eventObg.getName());
@@ -93,6 +96,51 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     if(ev.get(i).getType() == ListItem.TYPE_HEADER)
                         numToDel++;
                 }
+
+                final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(eventObg.getHref()));
+                holder.date.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        context.startActivity(intent);
+                    }
+                });
+                holder.title.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        context.startActivity(intent);
+                    }
+                });
+                holder.clickConstrain.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        context.startActivity(intent);
+                    }
+                });
+
+                holder.check.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(holder.checkInt == 0)
+                        {
+                            holder.check.setImageResource(R.drawable.ic_star_color);
+                            holder.checkInt = 1;
+                        }
+                        else
+                        {
+                            holder.check.setImageResource(R.drawable.ic_star);
+                            holder.checkInt = 0;
+                        }
+
+                    }
+                });
+
+                holder.img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DialogFragment dialog = new ImgZoomDialog(eventObg.getPhotoHref());
+                        FragmentManager manager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
+                        dialog.show(manager.beginTransaction(), "dialog1");
+                    }});
 
                 holder.position = position - numToDel;
                 holder.eventObj = eventObg;
@@ -133,43 +181,25 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageView img;
         int checkInt = 0;
         int position;
-        Boolean imgZoom = false;
         EventObject eventObj;
+        ConstraintLayout clickConstrain;
         ImageView check;
         OnItemClickListener onEventListener;
 
-        EventViewHolder(View itemView, final OnItemClickListener onEventListener) {
+        EventViewHolder(final View itemView, final OnItemClickListener onEventListener) {
             super(itemView);
             img = itemView.findViewById(R.id.event_image);
             date = itemView.findViewById(R.id.event_date);
             title = itemView.findViewById(R.id.event_title);
+            clickConstrain = itemView.findViewById(R.id.event_constrain);
             this.onEventListener = onEventListener;
-
             check = itemView.findViewById(R.id.item_image_button);
+
             check.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(checkInt == 0)
-                    {
-                        check.setImageResource(R.drawable.ic_star_color);
-                        checkInt = 1;
-                    }
-                    else
-                    {
-                        check.setImageResource(R.drawable.ic_star);
-                        checkInt = 0;
-                    }
                     onEventListener.onItemClick(eventObj);
-                }
-            });
-
-            img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DialogFragment dialog = new ImgZoomDialog(eventObj.getPhotoHref());
-                    FragmentManager manager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
-                    dialog.show(manager.beginTransaction(), "dialog1");
-            }});
+                }});
         }
         @Override
         public void onClick(View v) {
