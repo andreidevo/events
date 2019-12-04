@@ -21,8 +21,8 @@ interface EventObjectDAO {
     @Query("DELETE FROM favourite_events_table")
     fun clear()
 
-    @Query("SELECT * FROM favourite_events_table WHERE event_type = null")
-    fun test(): LiveData<List<EventObject>>
+    @Query("SELECT * FROM favourite_events_table WHERE event_favourite = :idx")
+    fun getAllFavouritesList(idx : Boolean): List<EventObject>
 
     @Query("SELECT * from favourite_events_table WHERE event_name = :id")
     fun getItemById(id : String?): EventObject?

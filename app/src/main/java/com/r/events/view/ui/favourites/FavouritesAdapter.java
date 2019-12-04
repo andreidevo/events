@@ -140,9 +140,10 @@ public class FavouritesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             img = itemView.findViewById(R.id.event_image);
             date = itemView.findViewById(R.id.event_date);
             title = itemView.findViewById(R.id.event_title);
+
             this.onEventListener = onEventListener;
-
-
+            ImageButton imgButton = itemView.findViewById(R.id.item_image_button);
+            imgButton.setOnClickListener(this);
         }
 
         @Override

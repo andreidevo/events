@@ -19,7 +19,6 @@ open class FavouritesViewModel(val database: EventObjectDAO,
 
     var events : LiveData<List<EventObject>> = database.getAllFavourites(true)
 
-
     fun getAllData() : LiveData<List<EventObject>> {
         return events
     }
